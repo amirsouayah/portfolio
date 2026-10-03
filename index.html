@@ -72,6 +72,7 @@ button.chip:focus-visible{outline:2px solid var(--accent2);outline-offset:2px}
 .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
 .card{background:var(--panel);border:1px solid var(--line);padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0}
 .card p{color:var(--muted)}
+.card a{color:var(--accent)}
 .kv{display:grid;grid-template-columns:max-content 1fr;gap:6px 18px;font-size:15px}
 .kv dt{font-family:var(--mono);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;padding-top:3px}
 .kv dd{margin:0}
@@ -88,8 +89,8 @@ footer{margin-top:64px;font-family:var(--mono);font-size:12px;color:var(--muted)
   <div class="brand">AMIR<span>/</span>SOUAYAH</div>
   <nav aria-label="Sections">
     <a href="#profil" data-tab="profil">Profil</a>
+    <a href="#arca" data-tab="arca">Maison Arca</a>
     <a href="#sevens" data-tab="sevens">Sevens</a>
-    <a href="#tunisie2046" data-tab="tunisie2046">Tunisie 2046</a>
     <a href="#lab" data-tab="lab">Lab</a>
   </nav>
 </div></header>
@@ -144,6 +145,25 @@ footer{margin-top:64px;font-family:var(--mono);font-size:12px;color:var(--muted)
   </div>
 </section>
 
+<section class="tab" id="tab-arca" hidden>
+  <div class="hero">
+    <div class="eyebrow">Projet client · e-commerce</div>
+    <h1>Maison Arca, de PrestaShop à <em>Shopify</em>.</h1>
+    <p class="lede">Migration et mise en production de la boutique en ligne d'une marque de denim : développement, insertion du catalogue, référencement et recette avant ouverture. Le site est en ligne sur maisonarca.com.</p>
+    <div class="chips"><span class="chip">Shopify</span><span class="chip">Liquid</span><span class="chip">Admin API GraphQL</span><span class="chip">SEO</span><span class="chip">Recette</span></div>
+  </div>
+  <div class="cols">
+    <div class="card"><h3>Développement</h3><p>Configuration de la boutique et du thème, reconstruction des menus et des pages, mise en place du français et de l'anglais avec leurs redirections.</p></div>
+    <div class="card"><h3>Insertion du catalogue</h3><p>Reprise des produits depuis PrestaShop : variantes de taille et de couleur, photos et vidéos rattachées à chaque variante, catégories et collections automatiques, codes-barres.</p></div>
+    <div class="card"><h3>SEO</h3><p>Titres et descriptions des pages, textes alternatifs des images, structure des collections et redirections des anciennes adresses.</p></div>
+    <div class="card"><h3>Tests</h3><p>Recette sur une boutique de préproduction avant chaque passage en production : parcours d'achat, affichage des variantes, langues et liens.</p></div>
+  </div>
+  <div class="block">
+    <div class="eyebrow">Ce que ce projet démontre</div>
+    <p>Je livre une boutique complète pour un client, et j'y applique la même rigueur de test que sur une application de paiement.</p>
+  </div>
+</section>
+
 <section class="tab" id="tab-sevens" hidden>
   <div class="hero">
     <div class="eyebrow">Projet personnel · produit en construction</div>
@@ -189,6 +209,7 @@ footer{margin-top:64px;font-family:var(--mono);font-size:12px;color:var(--muted)
     <div class="card"><h3>Tableau de bord Revit vers Excel</h3><p>Application qui transforme des données de construction en indicateurs lisibles, pour un bailleur immobilier.</p><div class="chips"><span class="chip">Vite</span><span class="chip">React</span><span class="chip">Recharts</span></div></div>
     <div class="card"><h3>Application de coaching</h3><p>Application React de suivi pour un coach indépendant.</p><div class="chips"><span class="chip">React</span></div></div>
     <div class="card"><h3>Guide voyageur</h3><p>Page d'accueil pour les hôtes d'une location : sections dépliables, copie du wifi en un geste, numéros d'urgence.</p><div class="chips"><span class="chip">HTML</span><span class="chip">JavaScript</span></div></div>
+    <div class="card"><h3>Tunisie 2046</h3><p>Étude personnelle sur la transformation de la Tunisie, portée par un site web en 3D.</p><p><a href="#tunisie2046">Voir le projet</a></p></div>
     <div class="card"><h3>Outillage IA pour les tests</h3><p>Expérimentations autour de RAG et de MCP pour assister l'écriture et la maintenance des tests automatisés.</p><div class="chips"><span class="chip">RAG</span><span class="chip">MCP</span><span class="chip">Playwright</span></div></div>
   </div>
 </section>
@@ -198,13 +219,14 @@ footer{margin-top:64px;font-family:var(--mono);font-size:12px;color:var(--muted)
 
 <script>
 (function(){
-  var tabs=['profil','sevens','tunisie2046','lab'];
+  var tabs=['profil','arca','sevens','lab','tunisie2046'];
   function show(){
     var h=(location.hash||'').replace('#','');
     if(tabs.indexOf(h)<0) h='profil';
     tabs.forEach(function(t){
       document.getElementById('tab-'+t).hidden = (t!==h);
       var a=document.querySelector('nav a[data-tab="'+t+'"]');
+      if(!a) return;
       if(t===h) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current');
     });
     window.scrollTo(0,0);
