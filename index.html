@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Amir Souayah, Lead QA Automation Engineer à Paris : parcours, compétences et projets.">
-<title>Amir Souayah Portfolio</title>
+<meta name="description" content="CV en ligne d'Amir Souayah, Lead QA Automation Engineer à Paris : parcours, compétences, automatisation des tests avec Playwright et IA.">
+<title>Amir Souayah, Lead QA Automation Engineer</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
 /* Layout: a test-run console. Sticky tab bar, CV as a pipeline timeline on the left rail, projects as "suites" in their own tabs. */
@@ -27,6 +27,7 @@
   --fg:#0c1233; --muted:#4f5a8a; --accent:#0a7f9c; --accent2:#b25e00; --pass:#11804a;
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.6;margin:0}
 canvas#grid{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.55}
 .wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding-inline:20px;padding-block:0 72px}
@@ -38,6 +39,21 @@ nav{display:flex;flex-wrap:wrap;gap:6px}
 nav a{font-family:var(--mono);font-size:13px;color:var(--muted);text-decoration:none;padding:7px 12px;border:1px solid transparent;border-radius:4px}
 nav a:hover{color:var(--fg);border-color:var(--line)}
 nav a[aria-current="page"]{color:var(--bg);background:var(--accent);font-weight:500}
+.bar-right{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
+.toggle{font-family:var(--mono);font-size:13px;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:7px 12px;cursor:pointer}
+.toggle:hover{border-color:var(--accent)}
+.toggle:focus-visible{outline:2px solid var(--accent2);outline-offset:2px}
+.role{font-family:var(--display);font-weight:600;font-size:clamp(18px,2.6vw,24px);color:var(--accent);line-height:1.25}
+.coords{font-family:var(--mono);font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 18px}
+.coords span{user-select:all}
+.project{display:flex;flex-direction:column;gap:20px;padding-top:40px;border-top:1px solid var(--line);scroll-margin-top:96px}
+.project h2{font-size:clamp(24px,4vw,34px)}
+.project h2 em{font-style:normal;color:var(--accent)}
+.jump{display:flex;flex-wrap:wrap;gap:8px}
+.jump a{font-family:var(--mono);font-size:13px;color:var(--fg);text-decoration:none;border:1px solid var(--line);background:var(--panel);padding:6px 10px;border-radius:4px}
+.jump a:hover{border-color:var(--accent)}
+.note{border:1px dashed var(--line);padding:20px;display:flex;flex-direction:column;gap:8px}
+.note p{color:var(--muted)}
 a:focus-visible{outline:2px solid var(--accent2);outline-offset:2px}
 section.tab{display:flex;flex-direction:column;gap:56px;padding-top:48px}
 h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.15}
@@ -87,21 +103,24 @@ footer{margin-top:64px;font-family:var(--mono);font-size:12px;color:var(--muted)
 <canvas id="grid" aria-hidden="true"></canvas>
 <header class="bar"><div class="bar-in">
   <div class="brand">AMIR<span>/</span>SOUAYAH</div>
+  <div class="bar-right">
   <nav aria-label="Sections">
     <a href="#profil" data-tab="profil">Profil</a>
-    <a href="#arca" data-tab="arca">Maison Arca</a>
-    <a href="#sevens" data-tab="sevens">Sevens</a>
-    <a href="#lab" data-tab="lab">Lab</a>
+    <a href="#ia" data-tab="ia">Playwright et IA</a>
+    <a href="#lab" data-tab="lab">Sevens Lab</a>
   </nav>
+  <button type="button" class="toggle" id="theme" aria-label="Changer de thème">Clair</button>
+  </div>
 </div></header>
 
 <div class="wrap">
 
 <section class="tab" id="tab-profil">
   <div class="hero">
-    <div class="eyebrow">Lead QA Automation Engineer · Paris</div>
-    <h1>La qualité logicielle, <em>automatisée</em> de bout en bout.</h1>
-    <p class="lede">Ingénieur logiciel diplômé (Bac+5), 8 ans d'expérience dont 7 en QA et automatisation des tests web, mobile et API. Je définis la stratégie de test, je construis le framework et j'encadre l'équipe qui le fait vivre.</p>
+    <h1>Amir Souayah</h1>
+    <div class="role">Lead QA Automation Engineer · Ingénieur QA Automatisation Senior</div>
+    <div class="coords"><span>Paris</span><span>amirsouayah@gmail.com</span><span>linkedin.com/in/amir-souayah</span></div>
+    <p class="lede">Ingénieur logiciel diplômé (Bac+5) avec 8 ans d'expérience, dont 7 en QA et automatisation des tests web, mobile et API. Lead QA Automation chez SNCF Voyageurs, où j'ai défini la stratégie de test et encadré l'équipe d'automatisation. Aujourd'hui chez CAWL (Worldline × Crédit Agricole), je porte la qualité d'une solution d'encaissement sur terminaux de paiement, de la certification NF525 au déploiement national.</p>
     <div class="status">
       <span class="ok">● Paiement et monétique</span>
       <span class="ok">● Transport</span>
@@ -145,72 +164,73 @@ footer{margin-top:64px;font-family:var(--mono);font-size:12px;color:var(--muted)
   </div>
 </section>
 
-<section class="tab" id="tab-arca" hidden>
+<section class="tab" id="tab-ia" hidden>
   <div class="hero">
-    <div class="eyebrow">Projet client · e-commerce</div>
-    <h1>Maison Arca, de PrestaShop à <em>Shopify</em>.</h1>
-    <p class="lede">Migration et mise en production de la boutique en ligne d'une marque de denim : développement, insertion du catalogue, référencement et recette avant ouverture. Le site est en ligne sur maisonarca.com.</p>
-    <div class="chips"><span class="chip">Shopify</span><span class="chip">Liquid</span><span class="chip">Admin API GraphQL</span><span class="chip">SEO</span><span class="chip">Recette</span></div>
+    <div class="eyebrow">Automatisation des tests et IA générative</div>
+    <h1>Playwright, IA, <em>RAG</em> et MCP.</h1>
+    <p class="lede">L'automatisation des tests change avec l'IA générative. Cette page présente la façon dont j'associe Playwright à des modèles de langage, pour écrire et maintenir les tests plus vite sans perdre le contrôle de la qualité.</p>
+    <div class="chips"><span class="chip">Playwright</span><span class="chip">TypeScript</span><span class="chip">RAG</span><span class="chip">MCP</span><span class="chip">CI/CD</span></div>
   </div>
   <div class="cols">
-    <div class="card"><h3>Développement</h3><p>Configuration de la boutique et du thème, reconstruction des menus et des pages, mise en place du français et de l'anglais avec leurs redirections.</p></div>
-    <div class="card"><h3>Insertion du catalogue</h3><p>Reprise des produits depuis PrestaShop : variantes de taille et de couleur, photos et vidéos rattachées à chaque variante, catégories et collections automatiques, codes-barres.</p></div>
-    <div class="card"><h3>SEO</h3><p>Titres et descriptions des pages, textes alternatifs des images, structure des collections et redirections des anciennes adresses.</p></div>
-    <div class="card"><h3>Tests</h3><p>Recette sur une boutique de préproduction avant chaque passage en production : parcours d'achat, affichage des variantes, langues et liens.</p></div>
+    <div class="card"><h3>Playwright</h3><p>Le socle : des tests de bout en bout en TypeScript, exécutés à chaque livraison dans la chaîne CI/CD.</p></div>
+    <div class="card"><h3>IA générative</h3><p>Un modèle de langage propose des scénarios et des corrections de sélecteurs. L'ingénieur relit, corrige et valide.</p></div>
+    <div class="card"><h3>RAG</h3><p>Le modèle reçoit les spécifications et les tests existants du projet, pour produire des scénarios qui collent au métier.</p></div>
+    <div class="card"><h3>MCP</h3><p>Un protocole standard qui relie le modèle aux outils : navigateur, dépôt de code, gestion des tests.</p></div>
   </div>
-  <div class="block">
-    <div class="eyebrow">Ce que ce projet démontre</div>
-    <p>Je livre une boutique complète pour un client, et j'y applique la même rigueur de test que sur une application de paiement.</p>
-  </div>
-</section>
-
-<section class="tab" id="tab-sevens" hidden>
-  <div class="hero">
-    <div class="eyebrow">Projet personnel · produit en construction</div>
-    <h1>Sevens, la plateforme des <em>maisons d'hôtes</em>.</h1>
-    <p class="lede">Une plateforme multi-tenant de gestion locative pour les maisons d'hôtes en Tunisie : un mini-site par propriété, un livret d'accueil par QR code et la réservation directe par WhatsApp, sans commission.</p>
-    <div class="chips"><span class="chip">React</span><span class="chip">Vite</span><span class="chip">TypeScript</span><span class="chip">TailwindCSS</span><span class="chip">shadcn/ui</span><span class="chip">Supabase</span></div>
-  </div>
-  <div class="cols">
-    <div class="card"><h3>Architecture multi-tenant</h3><p>Un super-admin génère un sous-domaine par propriété. Ajouter une maison ne demande aucun développement.</p></div>
-    <div class="card"><h3>Synchronisation iCal</h3><p>Une Edge Function Supabase importe les calendriers Airbnb et Booking. Un calendrier React affiche les disponibilités, colorées par source.</p></div>
-    <div class="card"><h3>Sevens Cockpit</h3><p>Tableau de bord de suivi et studio de contenu assisté par IA, avec export d'images aux formats réseaux sociaux. Testé avec Playwright.</p></div>
-    <div class="card"><h3>Sevens Academy</h3><p>Plateforme de formation en 12 modules : accès par rôle, quiz, suivi de progression et certificat de fin de parcours.</p></div>
-  </div>
-  <div class="block">
-    <div class="eyebrow">Ce que ce projet démontre</div>
-    <p>Je conçois un produit complet, du modèle de données à l'interface, et je le teste comme je teste les applications de mes clients.</p>
-  </div>
-</section>
-
-<section class="tab" id="tab-tunisie2046" hidden>
-  <div class="hero">
-    <div class="eyebrow">Projet personnel · étude et site 3D</div>
-    <h1>Tunisie <em>2046</em>.</h1>
-    <p class="lede">Un blueprint stratégique sur la transformation de la Tunisie, publié en quatre livraisons et porté par un site web futuriste en 3D.</p>
-  </div>
-  <div class="cols">
-    <div class="card"><h3>L'étude</h3><p>Une analyse structurée en quatre livraisons, pensée pour être présentée à des décideurs publics.</p></div>
-    <div class="card"><h3>Le site</h3><p>Une expérience web immersive qui rend l'étude lisible et navigable par le grand public.</p></div>
-  </div>
-  <div class="block">
-    <div class="eyebrow">Ce que ce projet démontre</div>
-    <p>Je sais transformer un sujet complexe en un produit web clair, et le mener sur la durée.</p>
+  <div class="note">
+    <h3>Projet détaillé</h3>
+    <p>La présentation complète du projet (architecture, démonstration et code) sera publiée ici.</p>
   </div>
 </section>
 
 <section class="tab" id="tab-lab" hidden>
   <div class="hero">
-    <div class="eyebrow">Réalisations courtes</div>
-    <h1>Le <em>Lab</em>.</h1>
-    <p class="lede">Des outils livrés en quelques jours pour répondre à un besoin précis.</p>
+    <div class="eyebrow">Projets</div>
+    <h1>Sevens <em>Lab</em>.</h1>
+    <p class="lede">Les projets que je conçois, développe et teste en dehors de mes missions : une boutique en ligne pour un client, une plateforme en construction et des outils livrés en quelques jours.</p>
+    <div class="jump"><a href="#arca">Maison Arca</a><a href="#sevens">Sevens</a><a href="#tunisie2046">Tunisie 2046</a><a href="#outils">Outils</a></div>
   </div>
-  <div class="cols">
-    <div class="card"><h3>Tableau de bord Revit vers Excel</h3><p>Application qui transforme des données de construction en indicateurs lisibles, pour un bailleur immobilier.</p><div class="chips"><span class="chip">Vite</span><span class="chip">React</span><span class="chip">Recharts</span></div></div>
-    <div class="card"><h3>Application de coaching</h3><p>Application React de suivi pour un coach indépendant.</p><div class="chips"><span class="chip">React</span></div></div>
-    <div class="card"><h3>Guide voyageur</h3><p>Page d'accueil pour les hôtes d'une location : sections dépliables, copie du wifi en un geste, numéros d'urgence.</p><div class="chips"><span class="chip">HTML</span><span class="chip">JavaScript</span></div></div>
-    <div class="card"><h3>Tunisie 2046</h3><p>Étude personnelle sur la transformation de la Tunisie, portée par un site web en 3D.</p><p><a href="#tunisie2046">Voir le projet</a></p></div>
-    <div class="card"><h3>Outillage IA pour les tests</h3><p>Expérimentations autour de RAG et de MCP pour assister l'écriture et la maintenance des tests automatisés.</p><div class="chips"><span class="chip">RAG</span><span class="chip">MCP</span><span class="chip">Playwright</span></div></div>
+
+  <div class="project" id="p-arca">
+    <div class="eyebrow">Projet client · e-commerce</div>
+    <h2>Maison Arca, de PrestaShop à <em>Shopify</em></h2>
+    <p class="lede">Migration et mise en production de la boutique en ligne d'une marque de denim : développement, insertion du catalogue, référencement et recette avant ouverture. Le site est en ligne sur maisonarca.com.</p>
+    <div class="chips"><span class="chip">Shopify</span><span class="chip">Liquid</span><span class="chip">Admin API GraphQL</span><span class="chip">SEO</span><span class="chip">Recette</span></div>
+    <div class="cols">
+      <div class="card"><h3>Développement</h3><p>Configuration de la boutique et du thème, reconstruction des menus et des pages, mise en place du français et de l'anglais avec leurs redirections.</p></div>
+      <div class="card"><h3>Insertion du catalogue</h3><p>Reprise des produits depuis PrestaShop : variantes de taille et de couleur, photos et vidéos rattachées à chaque variante, catégories et collections automatiques, codes-barres.</p></div>
+      <div class="card"><h3>SEO</h3><p>Titres et descriptions des pages, textes alternatifs des images, structure des collections et redirections des anciennes adresses.</p></div>
+      <div class="card"><h3>Tests</h3><p>Recette sur une boutique de préproduction avant chaque passage en production : parcours d'achat, affichage des variantes, langues et liens.</p></div>
+    </div>
+  </div>
+
+  <div class="project" id="p-sevens">
+    <div class="eyebrow">Projet personnel · produit en construction</div>
+    <h2>Sevens, la plateforme des <em>maisons d'hôtes</em></h2>
+    <p class="lede">Une plateforme multi-tenant de gestion locative pour les maisons d'hôtes en Tunisie : un mini-site par propriété, un livret d'accueil par QR code et la réservation directe par WhatsApp, sans commission.</p>
+    <div class="chips"><span class="chip">React</span><span class="chip">Vite</span><span class="chip">TypeScript</span><span class="chip">TailwindCSS</span><span class="chip">shadcn/ui</span><span class="chip">Supabase</span></div>
+    <div class="cols">
+      <div class="card"><h3>Architecture multi-tenant</h3><p>Un super-admin génère un sous-domaine par propriété. Ajouter une maison ne demande aucun développement.</p></div>
+      <div class="card"><h3>Synchronisation iCal</h3><p>Une Edge Function Supabase importe les calendriers Airbnb et Booking. Un calendrier React affiche les disponibilités, colorées par source.</p></div>
+      <div class="card"><h3>Sevens Cockpit</h3><p>Tableau de bord de suivi et studio de contenu assisté par IA, avec export d'images aux formats réseaux sociaux. Testé avec Playwright.</p></div>
+      <div class="card"><h3>Sevens Academy</h3><p>Plateforme de formation en 12 modules : accès par rôle, quiz, suivi de progression et certificat de fin de parcours.</p></div>
+    </div>
+  </div>
+
+  <div class="project" id="p-tunisie2046">
+    <div class="eyebrow">Projet personnel · étude et site 3D</div>
+    <h2>Tunisie <em>2046</em></h2>
+    <p class="lede">Un blueprint stratégique sur la transformation de la Tunisie, publié en quatre livraisons et porté par un site web en 3D.</p>
+  </div>
+
+  <div class="project" id="p-outils">
+    <div class="eyebrow">Réalisations courtes</div>
+    <h2>Outils</h2>
+    <div class="cols">
+      <div class="card"><h3>Tableau de bord Revit vers Excel</h3><p>Application qui transforme des données de construction en indicateurs lisibles, pour un bailleur immobilier.</p><div class="chips"><span class="chip">Vite</span><span class="chip">React</span><span class="chip">Recharts</span></div></div>
+      <div class="card"><h3>Application de coaching</h3><p>Application React de suivi pour un coach indépendant.</p><div class="chips"><span class="chip">React</span></div></div>
+      <div class="card"><h3>Guide voyageur</h3><p>Page d'accueil pour les hôtes d'une location : sections dépliables, copie du wifi en un geste, numéros d'urgence.</p><div class="chips"><span class="chip">HTML</span><span class="chip">JavaScript</span></div></div>
+    </div>
   </div>
 </section>
 
@@ -219,9 +239,11 @@ footer{margin-top:64px;font-family:var(--mono);font-size:12px;color:var(--muted)
 
 <script>
 (function(){
-  var tabs=['profil','arca','sevens','lab','tunisie2046'];
+  var tabs=['profil','ia','lab'];
+  var inLab={arca:1,sevens:1,tunisie2046:1,outils:1};
   function show(){
-    var h=(location.hash||'').replace('#','');
+    var h=(location.hash||'').replace('#',''), target=null;
+    if(inLab[h]){target='p-'+h;h='lab';}
     if(tabs.indexOf(h)<0) h='profil';
     tabs.forEach(function(t){
       document.getElementById('tab-'+t).hidden = (t!==h);
@@ -229,14 +251,28 @@ footer{margin-top:64px;font-family:var(--mono);font-size:12px;color:var(--muted)
       if(!a) return;
       if(t===h) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current');
     });
-    window.scrollTo(0,0);
+    var el=target&&document.getElementById(target);
+    if(el) el.scrollIntoView(); else window.scrollTo(0,0);
   }
   window.addEventListener('hashchange',show); show();
+
+  // Thème : suit le système par défaut, le bouton force clair ou sombre et s'en souvient.
+  var root=document.documentElement, tb=document.getElementById('theme');
+  function current(){return root.getAttribute('data-theme')||(window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');}
+  function label(){tb.textContent=current()==='dark'?'Clair':'Sombre';}
+  try{var saved=localStorage.getItem('theme');if(saved==='light'||saved==='dark')root.setAttribute('data-theme',saved);}catch(e){}
+  label();
+  tb.addEventListener('click',function(){
+    var next=current()==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    try{localStorage.setItem('theme',next);}catch(e){}
+    label(); if(typeof redraw==='function') redraw();
+  });
 
 
   // CV dynamique : les durées se calculent à la date du jour, les filtres surlignent les missions par techno.
   var JOBS=[
-   {s:'CAWL',t:"Senior QA Automation Engineer, CAWL (Worldline × Crédit Agricole)",w:'La Défense',from:[2025,7],to:null,tech:['Appium','Java','Android TPE','API REST','NF525'],b:["Stratégie de test complète des API et des portails mainteneur et provider, en environnement régulé.","Automatisation des tests sur terminaux de paiement Android avec Appium et Java.","Participation à l'audit NF525 jusqu'à l'obtention de la certification.","Mise en production de l'application d'encaissement sur terminaux PAX et Ingenico, du pilote en Caisse régionale à la généralisation nationale.","Recette de tous les moyens de paiement (CB, PLBS, ANCV, e-commerce, paiement par lien) et PV de mise en production."]},
+   {s:'CAWL',t:"Senior QA Automation Engineer, CAWL (Worldline × Crédit Agricole)",w:'La Défense',from:[2025,7],to:null,tech:['Playwright','Appium','Java','Android TPE','API REST','NF525','Nepting'],b:["Stratégie de test complète des API et des portails mainteneur et provider, en environnement régulé.","Automatisation des tests sur terminaux de paiement Android avec Appium et Java.","Participation à l'audit NF525 jusqu'à l'obtention de la certification.","Mise en production de l'application d'encaissement sur terminaux PAX et Ingenico, du pilote en Caisse régionale à la généralisation nationale.","Recette de tous les moyens de paiement (CB, PLBS, ANCV, e-commerce, paiement par lien) et PV de mise en production."]},
    {s:'SNCF',t:"Lead QA Automation Engineer, SNCF Voyageurs",w:'Paris · via Consort France',from:[2023,4],to:[2025,5],tech:['Playwright','TypeScript','Cucumber','GitHub Actions','Xray'],b:["Stratégie d'automatisation des tests du site SNCF Voyageurs, définie de zéro au sein de SNCF Connect & Tech.","Framework Playwright, TypeScript et Cucumber BDD pour les tests fonctionnels et de non-régression.","Encadrement technique de 2 ingénieurs automatisation : répartition des tâches, revue de code, bonnes pratiques.","Intégration des suites dans les pipelines CI/CD GitHub Actions ; traçabilité sous Xray et Jira."]},
    {s:'KICK',t:"Ingénieur QA Automation, Kickwin",w:'via Astrolab',from:[2021,12],to:[2023,3],tech:['Cypress','Karate','TypeScript','React','Node.js'],b:["Stratégie de tests fonctionnels, de non-régression et de performance d'une application web temps réel.","Scénarios End-to-End avec Cypress, tests API avec Karate DSL, tests unitaires en TDD."]},
    {s:'WLT',t:"Ingénieur Développement et QA Automation, C Wallet",w:'via Astrolab',from:[2020,12],to:[2021,12],tech:['Selenium','TypeScript','GitLab CI','Node.js'],b:["Développement et validation d'un portefeuille électronique de paiement par QR Code.","Tests Frontend avec Selenium et React Testing Library ; modules JWT et paiements Stripe."]},
@@ -257,7 +293,7 @@ footer{margin-top:64px;font-family:var(--mono);font-size:12px;color:var(--muted)
       var off=active&&j.tech.indexOf(active)<0;
       return '<div class="job"'+(off?' data-off':'')+'><div class="sigil">'+j.s+'</div><div class="job-body"><h3>'+esc(j.t)+'</h3><div class="meta">'+ym(j.from)+' à '+(j.to?ym(j.to):"aujourd'hui")+' · '+dur(months(j))+(j.w?' · '+esc(j.w):'')+'</div><ul>'+j.b.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ul><div class="chips">'+j.tech.map(function(k){return '<span class="chip">'+k+'</span>';}).join('')+'</div></div></div>';
     }).join('');
-    fl.innerHTML=names.map(function(k){return '<button type="button" class="chip" data-k="'+k+'" aria-pressed="'+(k===active)+'">'+k+' · '+dur(techs[k])+'</button>';}).join('');
+    fl.innerHTML=names.map(function(k){return '<button type="button" class="chip" data-k="'+k+'" aria-pressed="'+(k===active)+'">'+k+'</button>';}).join('');
   }
   fl.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;active=(active===b.dataset.k)?null:b.dataset.k;render();});
   var total=JOBS.reduce(function(a,j){return a+months(j);},0);
@@ -284,6 +320,7 @@ footer{margin-top:64px;font-family:var(--mono);font-size:12px;color:var(--muted)
     });
     if(!still) requestAnimationFrame(draw);
   }
+  function redraw(){ if(still) draw(); }
   size();addEventListener('resize',function(){size(); if(still) draw();});draw();
 })();
 </script>
