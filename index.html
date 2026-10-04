@@ -12,6 +12,7 @@
   color-scheme:dark;
   --bg:#070b1a; --panel:#0e1530; --panel2:#141d40; --line:#26315f;
   --fg:#e8ecff; --muted:#97a2d1; --accent:#5ee6ff; --accent2:#ffb347; --pass:#6df0a8;
+  --paper:#1b1a17; --ink:#efece4; --soft:#a8a397; --rule:#34322c;
   --display:"Chakra Petch","Trebuchet MS",sans-serif;
   --body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
   --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
@@ -20,11 +21,13 @@
   color-scheme:light;
   --bg:#f2f4fc; --panel:#ffffff; --panel2:#e8ecfa; --line:#c9d0ee;
   --fg:#0c1233; --muted:#4f5a8a; --accent:#0a7f9c; --accent2:#b25e00; --pass:#11804a;
+  --paper:#faf8f3; --ink:#1d1c1a; --soft:#67635b; --rule:#e2ddd1;
 }}
 :root[data-theme="light"]{
   color-scheme:light;
   --bg:#f2f4fc; --panel:#ffffff; --panel2:#e8ecfa; --line:#c9d0ee;
   --fg:#0c1233; --muted:#4f5a8a; --accent:#0a7f9c; --accent2:#b25e00; --pass:#11804a;
+  --paper:#faf8f3; --ink:#1d1c1a; --soft:#67635b; --rule:#e2ddd1;
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -96,6 +99,45 @@ button.chip:focus-visible{outline:2px solid var(--accent2);outline-offset:2px}
 .contact code{font-family:var(--mono);font-size:15px;user-select:all;color:var(--accent)}
 footer{margin-top:64px;font-family:var(--mono);font-size:12px;color:var(--muted)}
 @media (max-width:520px){.job{gap:12px}.sigil{width:42px;height:48px;font-size:11px}.run{margin-left:21px}.job{margin-left:-21px}}
+
+/* Présentations : une feuille claire et sobre, une diapositive à la fois. */
+.deck{background:var(--paper);color:var(--ink);border:1px solid var(--rule);border-radius:10px;display:flex;flex-direction:column;min-width:0}
+.deck:focus-visible{outline:2px solid var(--accent2);outline-offset:3px}
+.slide{display:flex;flex-direction:column;gap:22px;padding:clamp(22px,5vw,56px);min-height:min(56vw,520px);min-width:0}
+.slide + .slide{border-top:1px solid var(--rule)}
+.slide .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--soft)}
+.slide h3{font-family:var(--body);font-weight:600;font-size:clamp(22px,3.4vw,36px);line-height:1.15;letter-spacing:-.01em;color:var(--ink)}
+.slide p,.slide li{color:var(--ink);max-width:70ch}
+.slide .sub{color:var(--soft);font-size:17px}
+.slide ul,.slide ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+.slide.cover{justify-content:center;gap:16px}
+.slide.cover h3{font-size:clamp(30px,5.4vw,56px)}
+.spec{display:grid;grid-template-columns:max-content 1fr;gap:14px 28px;margin:0}
+.spec dt{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);padding-top:4px}
+.spec dd{margin:0;min-width:0}
+.pill{display:inline-block;font-family:var(--mono);font-size:13px;border:1px solid var(--rule);border-radius:999px;padding:3px 12px}
+.tw{overflow-x:auto}
+.slide table{border-collapse:collapse;width:100%;font-size:15px}
+.slide th{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);font-weight:400;text-align:left}
+.slide th,.slide td{padding:11px 14px 11px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+.slide td strong{font-weight:600}
+.slide .toc{list-style:none;padding:0;gap:14px}
+.toc li{display:flex;gap:16px;align-items:baseline;font-size:19px}
+.toc span{font-family:var(--mono);font-size:13px;color:var(--accent)}
+.slide .flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;list-style:none;padding:0}
+.flow li{border:1px solid var(--rule);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:8px;max-width:none}
+.flow span{font-family:var(--mono);font-size:12px;color:var(--accent)}
+.quad{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px 28px}
+.quad div{border-top:1px solid var(--rule);padding-top:12px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.quad strong{font-weight:600}
+.quad span{color:var(--soft);font-size:15px}
+.deck-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px clamp(16px,3vw,24px);border-top:1px solid var(--rule)}
+.deck-bar button{font-family:var(--mono);font-size:13px;color:var(--ink);background:transparent;border:1px solid var(--rule);border-radius:6px;padding:8px 14px;cursor:pointer}
+.deck-bar button:hover:not(:disabled){border-color:var(--accent)}
+.deck-bar button:disabled{opacity:.4;cursor:default}
+.deck-bar button:focus-visible{outline:2px solid var(--accent2);outline-offset:2px}
+.deck-count{font-family:var(--mono);font-size:13px;color:var(--soft);font-variant-numeric:tabular-nums}
+@media (max-width:520px){.spec{grid-template-columns:1fr;gap:4px 0}.spec dd{margin-bottom:12px}}
 </style>
 
 </head>
@@ -181,6 +223,211 @@ footer{margin-top:64px;font-family:var(--mono);font-size:12px;color:var(--muted)
     <h3>Projet détaillé</h3>
     <p>La présentation complète du projet (architecture, démonstration et code) sera publiée ici.</p>
   </div>
+
+  <div class="block" id="p-strategie">
+    <div class="eyebrow">Stratégie de test</div>
+    <h2>La méthode que j'applique pour cadrer l'automatisation</h2>
+    <p>Quels tests, avec quels outils, et comment suivre leurs résultats. Les flèches du clavier font défiler les diapositives.</p>
+    <div class="deck" tabindex="0" aria-label="Présentation : stratégie de test">
+
+      <article class="slide cover">
+        <div class="kicker">Présentation</div>
+        <h3>Stratégie de test</h3>
+        <p class="sub">Cadrer l'automatisation des tests d'un site web grand public : le périmètre, les outils, le suivi et la méthode.</p>
+      </article>
+
+      <article class="slide">
+        <div class="kicker">Sommaire</div>
+        <h3>Quatre parties</h3>
+        <ol class="toc">
+          <li><span>1</span>Périmètre des tests</li>
+          <li><span>2</span>Outils d'automatisation</li>
+          <li><span>3</span>Gestion des tests automatisés</li>
+          <li><span>4</span>Perspectives et recommandations</li>
+        </ol>
+      </article>
+
+      <article class="slide">
+        <div class="kicker">1 · Périmètre des tests</div>
+        <h3>Trois niveaux d'importance</h3>
+        <div class="tw"><table>
+          <thead><tr><th>Niveau</th><th>Ce que cela signifie</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Modéré</strong></td><td>Les tests ne sont pas essentiels. Ils couvrent des exigences peu importantes.</td></tr>
+            <tr><td><strong>Élevé</strong></td><td>Les tests doivent être réalisés pour détecter les anomalies qui mécontenteraient le client.</td></tr>
+            <tr><td><strong>Très élevé</strong></td><td>Les tests garantissent le bon fonctionnement du système. Les négliger peut faire échouer le projet.</td></tr>
+          </tbody>
+        </table></div>
+      </article>
+
+      <article class="slide">
+        <div class="kicker">1 · Périmètre des tests</div>
+        <h3>Tests fonctionnels</h3>
+        <dl class="spec">
+          <dt>Objectif</dt><dd>S'assurer que les fonctionnalités spécifiées sont bien présentes.</dd>
+          <dt>Importance</dt><dd><span class="pill">Très élevée</span></dd>
+          <dt>Stratégie</dt><dd><ul>
+            <li>Identifier les cas de test représentatifs à partir des spécifications et des cas d'utilisation.</li>
+            <li>Écrire le scénario de test avant de coder chaque cas d'utilisation.</li>
+            <li>Dérouler ce scénario une fois le code livré.</li>
+            <li>Faire tester les fonctionnalités par le client.</li>
+          </ul></dd>
+        </dl>
+      </article>
+
+      <article class="slide">
+        <div class="kicker">1 · Périmètre des tests</div>
+        <h3>Inspection de l'interface</h3>
+        <dl class="spec">
+          <dt>Objectif</dt><dd>Une interface de qualité, conforme aux standards.</dd>
+          <dt>Importance</dt><dd><span class="pill">Élevée</span></dd>
+          <dt>Stratégie</dt><dd><ul>
+            <li>Faire tester et valider l'interface par le client.</li>
+            <li>La comparer aux standards et aux autres outils de l'environnement.</li>
+            <li>Auditer l'accessibilité et le référencement avec Lighthouse, Axe ou Wave.</li>
+            <li>Simuler les parcours utilisateur avec un outil d'automatisation comme Playwright.</li>
+          </ul></dd>
+        </dl>
+      </article>
+
+      <article class="slide">
+        <div class="kicker">1 · Périmètre des tests</div>
+        <h3>Non-régression</h3>
+        <dl class="spec">
+          <dt>Objectif</dt><dd>Stabilité, qualité, fiabilité.</dd>
+          <dt>Importance</dt><dd><span class="pill">Très élevée</span></dd>
+          <dt>Stratégie</dt><dd><ul>
+            <li>Identifier les fonctionnalités les plus critiques et leurs cas de test.</li>
+            <li>Rejouer ces tests régulièrement, de façon automatisée dès que possible.</li>
+            <li>Ajouter un cas de test pour chaque problème trouvé, afin qu'il ne revienne pas.</li>
+          </ul></dd>
+        </dl>
+      </article>
+
+      <article class="slide">
+        <div class="kicker">1 · Périmètre des tests</div>
+        <h3>Tests unitaires</h3>
+        <dl class="spec">
+          <dt>Objectif</dt><dd>Vérifier que chaque unité de code, fonction ou méthode, produit le résultat attendu.</dd>
+          <dt>Importance</dt><dd><span class="pill">Très élevée</span></dd>
+          <dt>Stratégie</dt><dd><ul>
+            <li>Chaque classe de l'application a sa classe de test Jest.</li>
+            <li>Le développeur qui écrit une classe écrit son test dans la foulée.</li>
+            <li>Tous les tests rejoignent une suite exécutée en entier à chaque modification.</li>
+          </ul></dd>
+        </dl>
+      </article>
+
+      <article class="slide">
+        <div class="kicker">1 · Périmètre des tests</div>
+        <h3>Tests de performance</h3>
+        <dl class="spec">
+          <dt>Objectif</dt><dd>Vérifier les performances du produit.</dd>
+          <dt>Importance</dt><dd><span class="pill">Modérée</span></dd>
+          <dt>Stratégie</dt><dd><ul>
+            <li>Identifier ce qui peut dégrader les performances de l'application.</li>
+            <li>Décrire les tests qui répondent aux exigences de performance.</li>
+            <li>Les dérouler tout au long du développement.</li>
+            <li>Outils : Apache JMeter, LoadRunner, Gatling, Locust.</li>
+          </ul></dd>
+        </dl>
+      </article>
+
+      <article class="slide">
+        <div class="kicker">2 · Outils d'automatisation</div>
+        <h3>Cypress ou Playwright</h3>
+        <div class="tw"><table>
+          <thead><tr><th>Critère</th><th>Cypress</th><th>Playwright</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Plusieurs navigateurs</strong></td><td>Oui</td><td>Oui</td></tr>
+            <tr><td><strong>Vitesse</strong></td><td>Rapide</td><td>Très rapide</td></tr>
+            <tr><td><strong>Débogage</strong></td><td>Facile</td><td>Facile</td></tr>
+            <tr><td><strong>API</strong></td><td>Simple</td><td>Plus complète</td></tr>
+            <tr><td><strong>Documentation</strong></td><td>Bonne</td><td>Excellente</td></tr>
+          </tbody>
+        </table></div>
+        <p class="sub">Playwright est le plus flexible : une seule installation et une même API pour piloter Chromium, Firefox et WebKit.</p>
+      </article>
+
+      <article class="slide">
+        <div class="kicker">2 · Outils d'automatisation</div>
+        <h3>Pourquoi Playwright</h3>
+        <div class="quad">
+          <div><strong>Tous les navigateurs</strong><span>Chromium, WebKit et Firefox, les trois moteurs de rendu modernes.</span></div>
+          <div><strong>Toutes les plateformes</strong><span>Windows, Linux et macOS, en local ou en intégration continue, avec ou sans interface.</span></div>
+          <div><strong>Plusieurs langages</strong><span>TypeScript, JavaScript, Python, .NET et Java.</span></div>
+          <div><strong>Web mobile</strong><span>Émulation de Chrome pour Android et de Safari mobile, avec le même moteur qu'en production.</span></div>
+        </div>
+      </article>
+
+      <article class="slide">
+        <div class="kicker">3 · Gestion des tests automatisés</div>
+        <h3>Un seul suivi pour les tests manuels et automatisés</h3>
+        <p>Il faut voir les résultats de tous les tests, quelle que soit la façon dont ils sont exécutés, et connaître à tout moment la couverture des exigences. Chaque test est donc lié à une exigence, et la chaîne d'intégration continue remonte ses résultats. Xray le permet dans Jira :</p>
+        <ol class="flow">
+          <li><span>1</span>Créer les tests dans Jira</li>
+          <li><span>2</span>Écrire le code de test automatisé</li>
+          <li><span>3</span>Exécuter les tests dans l'environnement CI</li>
+          <li><span>4</span>Rapporter les résultats sur les tests dans Jira</li>
+        </ol>
+      </article>
+
+      <article class="slide">
+        <div class="kicker">3 · Gestion des tests automatisés</div>
+        <h3>Le rôle de chaque outil</h3>
+        <div class="tw"><table>
+          <thead><tr><th>Outil</th><th>Ce qu'il fait</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Jira</strong></td><td>Gère les exigences et les versions.</td></tr>
+            <tr><td><strong>Xray</strong></td><td>Gère les tests, les relie aux exigences, exécute les tests manuels, stocke les résultats et mesure la couverture.</td></tr>
+            <tr><td><strong>Git</strong></td><td>Stocke le code du produit et le code des tests automatisés.</td></tr>
+            <tr><td><strong>Outil CI</strong></td><td>Lance les builds et les tests automatisés, à intervalle régulier ou à chaque validation de code, et conserve les journaux d'exécution.</td></tr>
+          </tbody>
+        </table></div>
+      </article>
+
+      <article class="slide">
+        <div class="kicker">4 · Perspectives et recommandations</div>
+        <h3>Passer au BDD</h3>
+        <p>Le BDD (Behavior Driven Development) part du comportement attendu de l'application, et non de ses fonctionnalités prises une à une.</p>
+        <div class="quad">
+          <div><strong>Gherkin</strong><span>Le langage qui décrit les scénarios en phrases lisibles par tous.</span></div>
+          <div><strong>Cucumber</strong><span>L'outil qui relie chaque phrase du scénario à un test automatisé.</span></div>
+          <div><strong>Playwright</strong><span>L'outil qui exécute ces tests dans les différents navigateurs.</span></div>
+        </div>
+      </article>
+
+      <article class="slide">
+        <div class="kicker">4 · Perspectives et recommandations</div>
+        <h3>Du besoin à la livraison en sept étapes</h3>
+        <ol>
+          <li>Le métier exprime son besoin.</li>
+          <li>Le Product Owner décrit les comportements attendus.</li>
+          <li>Le QA rédige les scénarios de test qui valident ces comportements.</li>
+          <li>Le développeur écrit le code qui répond aux scénarios.</li>
+          <li>Le développeur ajuste le code jusqu'à ce que les scénarios passent.</li>
+          <li>Le QA vérifie que les scénarios passent.</li>
+          <li>La fonctionnalité peut être livrée.</li>
+        </ol>
+      </article>
+
+      <article class="slide">
+        <div class="kicker">4 · Perspectives et recommandations</div>
+        <h3>Ce que le BDD apporte</h3>
+        <div class="quad">
+          <div><strong>Une meilleure communication</strong><span>Métier, Product Owner, QA et développeurs lisent les mêmes scénarios.</span></div>
+          <div><strong>Un développement guidé par l'usage</strong><span>Le code répond au comportement attendu par l'utilisateur.</span></div>
+          <div><strong>Une documentation toujours à jour</strong><span>Les scénarios décrivent ce que fait l'application, et ils sont exécutés.</span></div>
+        </div>
+      </article>
+
+      <div class="deck-bar" hidden>
+        <button type="button" data-prev>Précédent</button>
+        <span class="deck-count" aria-live="polite"></span>
+        <button type="button" data-next>Suivant</button>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section class="tab" id="tab-lab" hidden>
@@ -255,6 +502,16 @@ footer{margin-top:64px;font-family:var(--mono);font-size:12px;color:var(--muted)
     if(el) el.scrollIntoView(); else window.scrollTo(0,0);
   }
   window.addEventListener('hashchange',show); show();
+
+  // Présentations : une diapositive à la fois, boutons et flèches du clavier.
+  [].forEach.call(document.querySelectorAll('.deck'),function(d){
+    var sl=[].slice.call(d.querySelectorAll('.slide')),i=0,bar=d.querySelector('.deck-bar');
+    var c=bar.querySelector('.deck-count'),p=bar.querySelector('[data-prev]'),n=bar.querySelector('[data-next]');
+    function go(k){i=Math.max(0,Math.min(sl.length-1,k));sl.forEach(function(x,j){x.hidden=j!==i;});c.textContent=(i+1)+' / '+sl.length;p.disabled=i===0;n.disabled=i===sl.length-1;}
+    p.addEventListener('click',function(){go(i-1);});n.addEventListener('click',function(){go(i+1);});
+    d.addEventListener('keydown',function(e){if(e.key==='ArrowRight'){go(i+1);e.preventDefault();}if(e.key==='ArrowLeft'){go(i-1);e.preventDefault();}});
+    bar.hidden=false;go(0);
+  });
 
   // Thème : suit le système par défaut, le bouton force clair ou sombre et s'en souvient.
   var root=document.documentElement, tb=document.getElementById('theme');
