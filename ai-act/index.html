@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>AI Act pour testeurs</title>
 <meta name="description" content="Formation AI Act en parcours 3D : ce que la loi exige, à quelle date, et comment le vérifier par des tests automatisés.">
-<meta name="author" content="Amir Souayah">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_FR">
 <meta property="og:title" content="AI Act pour testeurs">
@@ -165,6 +164,22 @@ summary{cursor:pointer;padding:12px 16px;font-weight:600}
 .rrow.ko .meter span i{background:var(--ko)}
 .rrow .pill{justify-self:start}
 
+.diag-form{display:flex;flex-direction:column;gap:20px}
+.diag-form fieldset{border:0;padding:0;margin:0;min-width:0}
+.diag-form legend{font-weight:600;padding:0;margin-bottom:8px}
+.choices{display:flex;flex-direction:column;gap:6px}
+.choice{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:baseline;padding:10px 12px;border:1px solid var(--line);border-radius:4px;background:var(--paper-2);cursor:pointer}
+.choice:hover{border-color:var(--ink)}
+.choice input{accent-color:var(--ink);width:16px;height:16px;transform:translateY(2px)}
+.choice small{display:block;color:var(--muted);font-size:13.5px}
+.btn{font:inherit;font-weight:600;padding:12px 22px;border-radius:4px;border:0;background:var(--ink);color:var(--paper);cursor:pointer;width:fit-content}
+.btn:hover{background:var(--accent)}
+.err{color:var(--ko);font-size:14px}
+.result{display:flex;flex-direction:column;gap:18px;border-top:2px solid var(--ink);padding-top:20px}
+.result-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.result-head h3{font-family:var(--display);font-weight:400;font-size:22px}
+.result ol{margin:0;padding-left:1.2rem;display:flex;flex-direction:column;gap:5px}
+@media (min-width:821px){.tiles.two-up{grid-template-columns:1fr 1fr}}
 .quiz{display:flex;flex-direction:column;gap:12px}
 .q{border:1px solid var(--line);padding:16px;display:flex;flex-direction:column;gap:10px}
 .opts{display:flex;flex-direction:column;gap:8px}
@@ -234,6 +249,7 @@ footer a{color:var(--gold)}
     <div class="brand"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#star"/></svg>AI Act pour testeurs</div>
     <nav class="nav" aria-label="Étapes">
       <a href="#direction">En une minute</a>
+      <a href="#diagnostic">Votre produit</a>
       <a href="#histoire">Histoire</a>
       <a href="#risques">Risques</a>
       <a href="#art50">Article 50</a>
@@ -255,7 +271,7 @@ footer a{color:var(--gold)}
     <p class="eyebrow">Règlement (UE) 2024/1689 · formation</p>
     <h1>Comprendre l'AI Act, et prouver qu'on le respecte</h1>
     <p class="lede">Cinq étapes à travers l'Europe pour savoir ce que la loi exige, à quelle date, et comment le vérifier par des tests.</p>
-    <p class="byline">Par Amir Souayah, ingénieur QA senior · état du droit au 10 octobre 2026</p>
+    <p class="byline">État du droit au 10 octobre 2026</p>
     <p class="cue">Faire défiler pour partir</p>
   </div>
 </header>
@@ -279,6 +295,44 @@ footer a{color:var(--gold)}
       <li>Quelle preuve avons-nous que les règles déjà applicables sont respectées ?</li>
     </ol>
   </div>
+</section>
+
+<section class="sheet" id="diagnostic">
+  <div class="head">
+    <span class="ref">Diagnostic indicatif</span>
+    <h2>Votre produit en trois questions</h2>
+    <p>Répondez pour un système d'IA précis. Le résultat s'affiche tout de suite. Vos réponses restent dans votre navigateur : rien n'est envoyé ni enregistré.</p>
+  </div>
+  <form class="diag-form" id="diagForm" novalidate>
+    <fieldset>
+      <legend>1. Que fait ce système ? Plusieurs réponses possibles.</legend>
+      <div class="choices">
+        <label class="choice" for="u-chat"><input type="checkbox" id="u-chat" name="use" value="chat" checked><span>Il dialogue avec des personnes<small>Chatbot, assistant vocal, agent conversationnel</small></span></label>
+        <label class="choice" for="u-gen"><input type="checkbox" id="u-gen" name="use" value="gen"><span>Il génère du contenu<small>Texte, image, audio ou vidéo</small></span></label>
+        <label class="choice" for="u-emo"><input type="checkbox" id="u-emo" name="use" value="emo"><span>Il reconnaît des émotions ou classe des personnes par biométrie</span></label>
+        <label class="choice" for="u-dec"><input type="checkbox" id="u-dec" name="use" value="dec"><span>Il prend ou prépare des décisions sur des personnes<small>Crédit, recrutement, éducation, accès à un service essentiel</small></span></label>
+        <label class="choice" for="u-other"><input type="checkbox" id="u-other" name="use" value="other"><span>Un autre usage<small>Recommandation de produits, tri interne, détection de fraude</small></span></label>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>2. D'où vient-il ?</legend>
+      <div class="choices">
+        <label class="choice" for="r-build"><input type="radio" id="r-build" name="role" value="build"><span>Nous l'avons développé, ou nous le vendons sous notre nom</span></label>
+        <label class="choice" for="r-buy"><input type="radio" id="r-buy" name="role" value="buy" checked><span>Nous l'avons acheté à un éditeur et nous l'utilisons</span></label>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>3. Est-il déjà en service ?</legend>
+      <div class="choices">
+        <label class="choice" for="s-before"><input type="radio" id="s-before" name="status" value="before" checked><span>Oui, depuis avant le 2 août 2026</span></label>
+        <label class="choice" for="s-after"><input type="radio" id="s-after" name="status" value="after"><span>Oui, depuis le 2 août 2026 ou après</span></label>
+        <label class="choice" for="s-no"><input type="radio" id="s-no" name="status" value="no"><span>Pas encore</span></label>
+      </div>
+    </fieldset>
+    <p class="err" id="diagErr" hidden>Cochez au moins un usage à la première question.</p>
+    <button class="btn" type="submit">Voir le résultat</button>
+  </form>
+  <div class="result" id="diagResult" aria-live="polite"></div>
 </section>
 
 <div class="vista" data-station id="histoire">
@@ -499,12 +553,13 @@ for (const question of QUESTIONS) {
       </ul>
     </div>
   </div>
-  <p>Les sessions sont animées par Amir Souayah, ingénieur QA senior et auteur de ce support.</p>
+  <p>Les sessions sont animées par l'auteur de ce support, ingénieur QA senior.</p>
   <a class="cta" href="https://portfolio-two-ebon-asx6l2ef88.vercel.app/">Organiser une session</a>
 </section>
 
 <footer>
   <p>Support de formation, pas un avis juridique. Les résumés sont ceux de l'auteur : le texte publié au Journal officiel de l'Union européenne fait foi, et le calendrier peut encore évoluer.</p>
+  <p>© 2026 AI Act pour testeurs. Tous droits réservés. Ce support est en accès libre : il ne peut être ni revendu ni redistribué sans autorisation.</p>
   <ul>
     <li><a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj">Règlement (UE) 2024/1689</a> et <a href="https://eur-lex.europa.eu/eli/reg/2026/1744/oj">règlement (UE) 2026/1744</a>, textes officiels sur EUR-Lex</li>
     <li><a href="https://github.com/amirsouayah/ai-act-tests">Dépôt ai-act-tests</a> : la suite de tests, la démo et le rapport</li>
@@ -615,6 +670,81 @@ for (const question of QUESTIONS) {
     card.appendChild(opts); card.appendChild(why); box.appendChild(card);
   });
 
+
+  /* ---------- Diagnostic indicatif en trois questions ---------- */
+  function diagnose(uses, role, status){
+    var provider = role === 'build', rows = [], checks = [];
+    var live = status === 'no' ? ['Dès la mise en service', 'warn'] : ['En vigueur', 'ok'];
+    var hr = ['2 déc. 2027', 'warn'];
+    if (uses.dec){
+      if (provider){
+        rows.push(['Art. 9 à 15', "Gestion des risques, données, documentation, journaux, notice, contrôle humain, robustesse", "Des exceptions existent (art. 6 §3). La détection de la fraude financière n'est pas visée.", hr]);
+        rows.push(['Art. 43 et 49', "Évaluation de la conformité et enregistrement avant la mise sur le marché", '', hr]);
+      } else {
+        rows.push(['Art. 26', "Utiliser le système selon sa notice, confier le contrôle humain à des personnes compétentes, conserver les journaux au moins six mois, informer les personnes", "Des exceptions existent (art. 6 §3). La détection de la fraude financière n'est pas visée.", hr]);
+        rows.push(['Art. 86', "Expliquer aux personnes le rôle du système dans une décision qui les concerne", '', hr]);
+      }
+      checks.push("Chaque décision produit une entrée de journal complète et retrouvable", "La reprise en main humaine fonctionne et s'applique vraiment", "Les résultats sont comparés entre groupes de population");
+    }
+    if (uses.emo){
+      rows.push(['Art. 5', "La reconnaissance des émotions est interdite au travail et dans l'enseignement", "Sauf raisons médicales ou de sécurité.", ['Interdit dans ces contextes', 'ko']]);
+      rows.push(['Art. 50 §3', "Informer les personnes exposées au système", provider ? "L'obligation pèse sur vos clients déployeurs : prévoyez l'écran d'information pour eux." : '', live]);
+      rows.push(['Annexe III, point 1', "Biométrie et reconnaissance des émotions figurent parmi les usages à haut risque", '', hr]);
+      checks.push("L'avis s'affiche avant l'activation de la caméra ou du micro");
+    }
+    if (uses.chat){
+      rows.push(['Art. 50 §1', "Informer les personnes qu'elles échangent avec une IA", provider ? "À vous de concevoir le système pour que la mention s'affiche." : "L'obligation de conception pèse sur votre éditeur. Demandez-lui sa preuve et vérifiez ce qui s'affiche chez vous.", live]);
+      checks.push("La mention IA s'affiche avant le premier message, sur le web et sur mobile", "Le modèle ne nie jamais être une IA, sous vingt formulations au moins", "La mention est lisible, accessible et hors des conditions générales");
+    }
+    if (uses.gen){
+      if (provider) rows.push(['Art. 50 §2', "Marquer les contenus générés dans un format lisible par machine", status === 'before' ? "Votre système était déjà sur le marché le 2 août 2026 : vous avez jusqu'au 2 décembre 2026." : '', status === 'before' ? ['Délai : 2 déc. 2026', 'warn'] : live]);
+      else rows.push(['Art. 50 §4', "Signaler les deepfakes, et les textes générés publiés pour informer le public", "Pour les textes, sauf relecture humaine avec responsabilité éditoriale.", live]);
+      checks.push("Chaque contenu généré porte son marquage", "Le marquage survit à l'export et au téléchargement", "Le label est visible sur les contenus publiés");
+    }
+    var high = uses.dec || uses.emo, transp = uses.chat || uses.gen || uses.emo;
+    if (!high && !transp){
+      rows.push(['Le reste', "Pas d'obligation propre à ce niveau de risque", "Vérifiez qu'aucun autre usage du système ne relève d'un niveau supérieur.", ['Risque minimal', 'na']]);
+      checks.push("Recenser vos systèmes d'IA et leurs usages", "Vérifier qu'aucun ne relève d'un niveau supérieur", "Former les équipes qui les utilisent");
+    }
+    rows.push(['Art. 4', "Développer la maîtrise de l'IA de votre personnel", '', ['En vigueur depuis févr. 2025', 'ok']]);
+    return {
+      level: high ? ['Caractéristiques associées au haut risque', 'warn'] : transp ? ['Obligations de transparence', ''] : ['Risque minimal', 'ok'],
+      role: provider ? 'Fournisseur' : 'Déployeur',
+      rows: rows, checks: checks.slice(0, 3)
+    };
+  }
+  (function(){
+    var form = document.getElementById('diagForm'), out = document.getElementById('diagResult'), err = document.getElementById('diagErr');
+    function el(tag, cls, text){ var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+    function render(example){
+      var uses = {}; form.querySelectorAll('input[name="use"]:checked').forEach(function(i){ uses[i.value] = true; });
+      if (!Object.keys(uses).length){ err.hidden = false; return; }
+      err.hidden = true;
+      var d = diagnose(uses, form.elements.role.value, form.elements.status.value);
+      out.textContent = '';
+      var head = el('div', 'result-head'); head.appendChild(el('h3', '', 'Votre résultat indicatif'));
+      if (example) head.appendChild(el('span', 'pill past', 'Exemple : un chatbot acheté à un éditeur'));
+      out.appendChild(head);
+      var tiles = el('div', 'tiles two-up');
+      var t1 = el('div', 'tile' + (d.level[1] ? ' ' + d.level[1] : '')); t1.appendChild(el('b', '', d.level[0])); t1.appendChild(el('span', '', 'Niveau de risque'));
+      var t2 = el('div', 'tile'); t2.appendChild(el('b', '', d.role)); t2.appendChild(el('span', '', "Votre rôle au sens de l'article 3"));
+      tiles.appendChild(t1); tiles.appendChild(t2); out.appendChild(tiles);
+      var rows = el('div', 'rows');
+      d.rows.forEach(function(r){
+        var row = el('div', 'row ' + r[3][1]); row.appendChild(el('i'));
+        var body = el('div'); body.appendChild(el('strong', '', r[1])); if (r[2]) body.appendChild(el('small', '', r[2]));
+        row.appendChild(body); row.appendChild(el('span', 'art', r[0])); row.appendChild(el('span', 'pill ' + r[3][1], r[3][0]));
+        rows.appendChild(row);
+      });
+      out.appendChild(rows);
+      var box = el('div'); box.appendChild(el('h3', '', 'Les trois premiers contrôles à mettre en place'));
+      var ol = el('ol'); d.checks.forEach(function(c){ ol.appendChild(el('li', '', c)); }); box.appendChild(ol); out.appendChild(box);
+      out.appendChild(el('p', 'note', "Résultat indicatif, établi à partir de vos seules réponses. Ce n'est ni un audit ni un avis juridique : faites confirmer ce classement par un juriste avant toute décision."));
+      var cta = el('a', 'cta', 'Organiser une session sur ce produit'); cta.href = 'https://portfolio-two-ebon-asx6l2ef88.vercel.app/'; out.appendChild(cta);
+    }
+    form.addEventListener('submit', function(ev){ ev.preventDefault(); render(false); out.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); });
+    render(true);
+  })();
 
   /* ---------- Scène 3D ---------- */
   var canvas = document.getElementById('sky'), root = document.documentElement;
