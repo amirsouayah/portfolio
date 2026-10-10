@@ -187,6 +187,8 @@ summary{cursor:pointer;padding:12px 16px;font-weight:600}
 .steps input{accent-color:var(--ink);width:16px;height:16px;transform:translateY(2px)}
 .steps small{display:block;color:var(--muted);font-size:13.5px}
 .steps input:checked + span{color:var(--muted);text-decoration:line-through}
+.cta{display:inline-block;width:fit-content;background:var(--ink);color:var(--paper);text-decoration:none;font-weight:600;padding:12px 22px;border-radius:4px}
+.cta:hover{background:var(--accent)}
 .agenda{margin:0;padding-left:1.1rem;color:var(--muted);font-size:15px;display:flex;flex-direction:column;gap:5px}
 
 footer{max-width:860px;margin:28px auto 0;color:var(--on-sky-muted);font-size:13.5px;display:flex;flex-direction:column;gap:8px}
@@ -466,40 +468,39 @@ for (const question of QUESTIONS) {
 <div class="vista" data-station id="former">
   <div class="vista-in">
     <span class="place"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#star"/></svg>Fin du parcours</span>
-    <h2>Trente minutes pour former une équipe</h2>
-    <p>Ce support se présente tel quel, du premier écran au quiz.</p>
+    <h2>Une session pour votre équipe</h2>
+    <p>Ce support donne les bases. La session les applique à votre produit.</p>
   </div>
 </div>
 
 <section class="sheet">
   <div class="head">
-    <span class="ref">Passer à la pratique</span>
-    <h2>Le parcours, dans l'ordre</h2>
-    <p>La preuve passe avant le titre. Les cases cochées sont mémorisées dans ce navigateur.</p>
+    <span class="ref">Aller plus loin</span>
+    <h2>Former votre équipe à l'AI Act</h2>
+    <p>Chaque produit a son niveau de risque, ses règles et ses pièges. La session part de votre cas et se termine par une démonstration de la suite de tests.</p>
   </div>
-  <div class="path">
-    <div>
-      <div class="bar" aria-hidden="true"><i id="barFill"></i></div>
-      <ol class="steps" id="steps">
-        <li><label for="st1"><input type="checkbox" id="st1"><span>Lire l'article 50 dans le texte<small>Une page. Puis les lignes directrices de la Commission du 20 juillet 2026.</small></span></label></li>
-        <li><label for="st2"><input type="checkbox" id="st2"><span>Faire tourner la suite de tests sur la démo<small>Version conforme, puis version défectueuse.</small></span></label></li>
-        <li><label for="st3"><input type="checkbox" id="st3"><span>Observer cinq assistants publics à la main<small>Avec la grille du dépôt, sans rien automatiser.</small></span></label></li>
-        <li><label for="st4"><input type="checkbox" id="st4"><span>Brancher la suite sur un produit réel<small>Avec l'accord écrit de son propriétaire.</small></span></label></li>
-        <li><label for="st5"><input type="checkbox" id="st5"><span>Présenter ce support à une équipe<small>Trente minutes, avec la démonstration.</small></span></label></li>
-        <li><label for="st6"><input type="checkbox" id="st6"><span>Passer la certification ISTQB CT-AI<small>Une fois la pratique acquise.</small></span></label></li>
+  <div class="two">
+    <div class="box">
+      <h3>Au programme</h3>
+      <ol class="agenda">
+        <li>Les dates et les règles qui vous concernent</li>
+        <li>Le classement de vos systèmes d'IA</li>
+        <li>L'article 50 appliqué à votre produit</li>
+        <li>Démonstration : la suite de tests face à une version défectueuse</li>
+        <li>Vos questions</li>
       </ol>
     </div>
     <div class="box">
-      <h3>Session d'équipe, 30 minutes</h3>
-      <ol class="agenda">
-        <li>L'essentiel et les dates (5 min)</li>
-        <li>Les quatre niveaux de risque (5 min)</li>
-        <li>Article 50 : la règle et son test (10 min)</li>
-        <li>Le rapport, version défectueuse (5 min)</li>
-        <li>Quiz et questions (5 min)</li>
-      </ol>
+      <h3>Pour qui</h3>
+      <ul class="agenda">
+        <li>Équipes QA et développement : 45 minutes, avec la démonstration</li>
+        <li>Product owners et chefs de projet : 30 minutes</li>
+        <li>Direction : 15 minutes, l'essentiel et les décisions à prendre</li>
+      </ul>
     </div>
   </div>
+  <p>Les sessions sont animées par Amir Souayah, ingénieur QA senior et auteur de ce support.</p>
+  <a class="cta" href="https://portfolio-two-ebon-asx6l2ef88.vercel.app/">Organiser une session</a>
 </section>
 
 <footer>
@@ -614,15 +615,6 @@ for (const question of QUESTIONS) {
     card.appendChild(opts); card.appendChild(why); box.appendChild(card);
   });
 
-  /* ---------- Parcours ---------- */
-  var KEY = 'aiact-parcours-2', boxes = document.querySelectorAll('#steps input'), fill = document.getElementById('barFill'), saved = {};
-  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e){ saved = {}; }
-  function refresh(){ var n = 0; boxes.forEach(function(c){ if (c.checked) n++; }); fill.style.width = (n / boxes.length * 100) + '%'; }
-  boxes.forEach(function(c){
-    if (saved[c.id]) c.checked = true;
-    c.addEventListener('change', function(){ saved[c.id] = c.checked; try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch(e){} refresh(); });
-  });
-  refresh();
 
   /* ---------- Scène 3D ---------- */
   var canvas = document.getElementById('sky'), root = document.documentElement;
