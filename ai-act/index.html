@@ -1,0 +1,917 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI Act pour testeurs</title>
+<meta name="description" content="Formation AI Act en parcours 3D : ce que la loi exige, à quelle date, et comment le vérifier par des tests automatisés.">
+<meta name="author" content="Amir Souayah">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="AI Act pour testeurs">
+<meta property="og:description" content="Formation AI Act en parcours 3D : ce que la loi exige, à quelle date, et comment le vérifier par des tests automatisés.">
+<meta property="og:url" content="https://portfolio-two-ebon-asx6l2ef88.vercel.app/ai-act/">
+<meta property="og:image" content="https://portfolio-two-ebon-asx6l2ef88.vercel.app/ai-act/og.png">
+<link rel="canonical" href="https://portfolio-two-ebon-asx6l2ef88.vercel.app/ai-act/">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0A1F5C">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%230A1F5C'/%3E%3Cpath fill='%23FFCC00' d='M12 3.6l2 6.1h6.4l-5.2 3.8 2 6.1-5.2-3.8-5.2 3.8 2-6.1-5.2-3.8h6.4z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>html{color-scheme:dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Marcellus&display=swap">
+<style>
+/* Layout : un ciel bleu nuit fixe où la caméra voyage d'un monument à l'autre ; le cours défile par-dessus en feuilles blanches, comme les pages d'un rapport. */
+/* Un seul univers visuel, assumé : ciel du drapeau européen, feuilles claires. Pas de variante de thème. */
+:root{
+  --sky:#0A1F5C; --sky-deep:#06133D; --star:#FFCC00; --gold:#E8C44A; --gold-ink:#8A6A00;
+  --paper:#FFFFFF; --paper-2:#F3F5FA; --ink:#0B1B3F; --muted:#55607A; --line:#D9DEEA; --accent:#1F3FA8;
+  --ok:#0F7A4D; --ok-bg:#DFF3E8; --warn:#B4540A; --warn-bg:#FCEBDD; --ko:#B3261E; --ko-bg:#FBE3E1; --na:#55607A; --na-bg:#E9ECF3;
+  --on-sky:#FFFFFF; --on-sky-muted:#C5D0EE; --code-bg:#06133D; --code-fg:#E6EAF5; --code-dim:#93A3CF;
+  --display:"Marcellus","Palatino Linotype",Palatino,Georgia,serif;
+  --body:"IBM Plex Sans","Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--sky);color:var(--on-sky);font-family:var(--body);font-size:16px;line-height:1.6}
+h1,h2,h3,p{margin:0}
+h1,h2{font-family:var(--display);font-weight:400;text-wrap:balance;line-height:1.12}
+h3{font-family:var(--body);font-weight:600;font-size:16px;line-height:1.35}
+a{color:inherit}
+a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--star);outline-offset:2px}
+.mono{font-family:var(--mono)}
+
+#sky{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block}
+.veil{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse at 50% 45%,rgba(6,19,61,0) 40%,rgba(6,19,61,.55) 100%)}
+
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:rgba(6,19,61,.86);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid rgba(232,196,74,.28)}
+.topbar-in{max-width:1080px;margin:0 auto;padding-inline:20px;height:52px;display:flex;align-items:center;gap:22px}
+.brand{font-family:var(--display);font-size:18px;white-space:nowrap;display:flex;align-items:center;gap:9px;color:var(--on-sky)}
+.brand svg{width:15px;height:15px;fill:var(--star);flex:none}
+.nav{display:flex;gap:18px;overflow-x:auto;min-width:0;scrollbar-width:none}
+.nav a{color:var(--on-sky-muted);text-decoration:none;font-size:14px;white-space:nowrap;padding-block:6px}
+.nav a:hover{color:var(--on-sky)}
+
+main{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding-inline:20px;padding-block:0 64px}
+
+.hero{min-height:92vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:16px;padding-block:32px}
+.hero-in{max-width:372px;display:flex;flex-direction:column;align-items:center;gap:14px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+.hero h1{font-size:clamp(30px,3.6vw,40px);text-shadow:0 2px 18px rgba(6,19,61,.9)}
+.hero .lede{color:var(--on-sky-muted);font-size:15.5px;text-shadow:0 1px 12px rgba(6,19,61,.9)}
+.byline{font-size:13px;color:var(--on-sky-muted)}
+.cue{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-top:10px}
+.ring-fallback{display:none;position:absolute;inset:0;margin:auto;width:min(86vw,70vh);height:min(86vw,70vh);z-index:-1}
+.ring-fallback use{fill:var(--star)}
+.no-gl .ring-fallback{display:block}
+.no-gl .hero{position:relative}
+
+.vista{min-height:74vh;display:flex;align-items:flex-end;padding-block:28px}
+.vista-in{display:flex;flex-direction:column;gap:6px;max-width:560px;text-shadow:0 2px 16px rgba(6,19,61,.95)}
+.place{font-family:var(--mono);font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:8px}
+.place svg{width:12px;height:12px;fill:var(--star)}
+.vista h2{font-size:clamp(28px,4.6vw,46px);color:var(--on-sky)}
+.vista p{color:var(--on-sky-muted);font-size:16.5px}
+
+.sheet{color-scheme:light;background:var(--paper);color:var(--ink);border-radius:6px;padding:clamp(20px,4vw,40px);display:flex;flex-direction:column;gap:22px;max-width:860px;margin-inline:auto;box-shadow:0 18px 50px rgba(3,10,36,.45);scroll-margin-top:68px}
+.sheet + .sheet{margin-top:22px}
+.sheet h2{font-size:clamp(24px,3.2vw,32px);color:var(--ink)}
+.sheet h2::after{content:"";display:block;width:54px;height:3px;background:var(--gold);margin-top:12px}
+.ref{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.head{display:flex;flex-direction:column;gap:8px}
+.head p{color:var(--muted);max-width:66ch}
+.sheet p{max-width:70ch}
+.note{font-size:14px;color:var(--muted)}
+.call{background:var(--paper-2);border-left:4px solid var(--ink);padding:14px 16px;font-size:15px}
+.call.gold{border-left-color:var(--gold)}
+
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.tile{border:1px solid var(--line);border-top:4px solid var(--ink);padding:14px 16px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.tile.ok{border-top-color:var(--ok)} .tile.warn{border-top-color:var(--warn)} .tile.ko{border-top-color:var(--ko)}
+.tile b{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.15;color:var(--ink);font-variant-numeric:tabular-nums}
+.tile.ok b{color:var(--ok)} .tile.warn b{color:var(--warn)} .tile.ko b{color:var(--ko)}
+.tile span{font-size:13.5px;color:var(--muted)}
+.asks{margin:0;padding:0;list-style:none;counter-reset:a;display:flex;flex-direction:column}
+.asks li{counter-increment:a;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:baseline;padding-block:10px;border-bottom:1px solid var(--line)}
+.asks li::before{content:counter(a);font-family:var(--mono);font-size:12px;width:22px;height:22px;border-radius:50%;background:var(--warn-bg);color:var(--warn);display:grid;place-items:center}
+
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:2px 10px;border-radius:999px;white-space:nowrap;border:1px solid transparent}
+.pill.ok{background:var(--ok-bg);color:var(--ok);border-color:#b6e0c9}
+.pill.warn{background:var(--warn-bg);color:var(--warn);border-color:#f2cfae}
+.pill.ko{background:var(--ko-bg);color:var(--ko);border-color:#f1bcb7}
+.pill.na{background:var(--na-bg);color:var(--na);border-color:var(--line)}
+.pill.past{background:var(--paper-2);color:var(--muted);border-color:var(--line)}
+
+.timeline{list-style:none;margin:0;padding:0;position:relative}
+.timeline li{display:grid;grid-template-columns:7.6rem 16px 1fr auto;gap:12px;align-items:baseline;padding-block:9px}
+.timeline time{font-family:var(--mono);font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;text-align:right;color:var(--ink);font-variant-numeric:tabular-nums}
+.timeline .dot{width:11px;height:11px;border-radius:50%;border:2px solid var(--ink);background:var(--paper);justify-self:center;transform:translateY(1px)}
+.timeline li.now .dot{background:var(--gold);border-color:var(--gold)}
+.timeline li.now time{color:var(--gold-ink)}
+.timeline div{min-width:0;font-size:15px}
+.timeline small{display:block;color:var(--muted);font-size:13.5px}
+
+.rows{border-top:2px solid var(--ink)}
+.row{display:grid;grid-template-columns:12px 1fr auto auto;gap:12px;align-items:center;padding-block:13px;border-bottom:1px solid var(--line)}
+.row > *{min-width:0}
+.row i{width:10px;height:10px;border-radius:50%;background:var(--na)}
+.row.ok i{background:var(--ok)} .row.warn i{background:var(--warn)} .row.ko i{background:var(--ko)}
+.row small{display:block;color:var(--muted);font-size:13.5px}
+.art{font-family:var(--mono);font-size:13px;color:var(--accent);white-space:nowrap}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.two > *{min-width:0}
+.box{border:1px solid var(--line);padding:16px;display:flex;flex-direction:column;gap:8px}
+.box p{font-size:15px;color:var(--muted)}
+.roles{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line)}
+.role{padding:14px;border-right:1px solid var(--line);min-width:0;display:flex;flex-direction:column;gap:5px}
+.role:last-child{border-right:0}
+.role p{font-size:14px;color:var(--muted)}
+.role.me{background:var(--ink)} .role.me h3{color:var(--star)} .role.me p{color:#D7DEF2}
+
+.rules{border-top:2px solid var(--ink)}
+.rule{display:grid;grid-template-columns:6.2rem 1fr 1fr;gap:18px;padding-block:16px;border-bottom:1px solid var(--line)}
+.rule > *{min-width:0}
+.rule .who{display:block;font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:3px}
+.lbl{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;display:block;margin-bottom:3px}
+.rule p{font-size:15px}
+.rule .t{background:var(--paper-2);border-left:3px solid var(--gold);padding:10px 14px}
+.traps{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:10px 22px}
+.traps li{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:baseline;font-size:15px}
+details{border:1px solid var(--line)}
+summary{cursor:pointer;padding:12px 16px;font-weight:600}
+.code{background:var(--code-bg);color:var(--code-fg);overflow-x:auto}
+.code pre{margin:0;padding:18px;font-family:var(--mono);font-size:12.5px;line-height:1.65;tab-size:2}
+.code .c{color:var(--code-dim)} .code .s{color:var(--gold)}
+
+.switch{display:inline-flex;border:1px solid var(--ink);border-radius:4px;overflow:hidden;width:fit-content;max-width:100%}
+.switch button{font:inherit;font-size:14px;font-weight:600;padding:8px 14px;border:0;background:var(--paper);color:var(--ink);cursor:pointer}
+.switch button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.report{border:1px solid var(--line)}
+.report-head{background:var(--ink);color:var(--paper);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 16px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.rrow{display:grid;grid-template-columns:5.2rem 1fr 7rem 8.6rem;gap:14px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}
+.rrow:nth-child(odd){background:var(--paper-2)}
+.rrow:last-child{border-bottom:0}
+.rrow > *{min-width:0}
+.rrow strong{font-weight:600;font-size:15px}
+.rrow small{display:block;color:var(--muted);font-size:13px}
+.meter{display:flex;flex-direction:column;gap:4px;font-family:var(--mono);font-size:12.5px;font-variant-numeric:tabular-nums}
+.meter span{display:block;height:6px;background:var(--line)}
+.meter span i{display:block;height:100%;background:var(--ok);transition:width .35s}
+.rrow.ko .meter span i{background:var(--ko)}
+.rrow .pill{justify-self:start}
+
+.quiz{display:flex;flex-direction:column;gap:12px}
+.q{border:1px solid var(--line);padding:16px;display:flex;flex-direction:column;gap:10px}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{font:inherit;text-align:left;color:var(--ink);background:var(--paper-2);border:1px solid var(--line);border-radius:4px;padding:10px 12px;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--ink)}
+.opt:disabled{cursor:default;opacity:.7}
+.opt.right{background:var(--ok-bg);border-color:var(--ok);color:var(--ok);opacity:1}
+.opt.wrong{background:var(--ko-bg);border-color:var(--ko);color:var(--ko);opacity:1}
+.why{font-size:14.5px;color:var(--muted)}
+.score{font-family:var(--mono);font-size:14px}
+
+.path{display:grid;grid-template-columns:1.25fr .75fr;gap:22px;align-items:start}
+.path > *{min-width:0}
+.bar{height:6px;background:var(--line);margin-bottom:6px}
+.bar i{display:block;height:100%;width:0;background:var(--gold);transition:width .3s}
+.steps{list-style:none;margin:0;padding:0;counter-reset:s}
+.steps li{counter-increment:s;border-bottom:1px solid var(--line)}
+.steps label{display:grid;grid-template-columns:auto auto 1fr;gap:12px;align-items:baseline;padding-block:11px;cursor:pointer}
+.steps label::before{content:counter(s,decimal-leading-zero);font-family:var(--mono);font-size:12.5px;color:var(--muted);order:-1}
+.steps input{accent-color:var(--ink);width:16px;height:16px;transform:translateY(2px)}
+.steps small{display:block;color:var(--muted);font-size:13.5px}
+.steps input:checked + span{color:var(--muted);text-decoration:line-through}
+.agenda{margin:0;padding-left:1.1rem;color:var(--muted);font-size:15px;display:flex;flex-direction:column;gap:5px}
+
+footer{max-width:860px;margin:28px auto 0;color:var(--on-sky-muted);font-size:13.5px;display:flex;flex-direction:column;gap:8px}
+footer ul{margin:0;padding-left:1.1rem;display:flex;flex-direction:column;gap:3px}
+footer a{color:var(--gold)}
+
+@media (max-width:820px){
+  .hero{justify-content:flex-end;min-height:88vh;padding-bottom:7vh}
+  .hero-in{max-width:520px}
+  .vista{min-height:66vh}
+  .tiles,.two,.path,.traps{grid-template-columns:1fr}
+  .roles{grid-template-columns:1fr 1fr}
+  .role:nth-child(2n){border-right:0}
+  .role:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .rule{grid-template-columns:1fr;gap:8px}
+  .timeline li{grid-template-columns:16px 1fr auto;column-gap:10px}
+  .timeline time{grid-column:2 / -1;text-align:left;order:-1}
+  .timeline .dot{grid-row:1 / span 2;align-self:start;margin-top:4px}
+  .rrow{grid-template-columns:1fr auto;row-gap:8px}
+  .rrow .art{grid-column:1 / -1}
+  .rrow .meter{grid-column:1 / 2}
+  .row{grid-template-columns:12px 1fr auto}
+  .row .art{grid-column:2 / 3;grid-row:2}
+}
+@media (max-width:460px){
+  .roles{grid-template-columns:1fr}
+  .role{border-right:0;border-bottom:1px solid var(--line)}
+  .role:last-child{border-bottom:0}
+}
+@media (prefers-reduced-motion:reduce){.bar i,.meter span i{transition:none}}
+</style>
+</head>
+<body>
+
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><path id="star" d="M12 1.6l2.47 7.6h7.99l-6.46 4.7 2.47 7.6L12 16.8l-6.47 4.7L8 13.9 1.54 9.2h7.99z"/></defs></svg>
+
+<canvas id="sky" aria-hidden="true"></canvas>
+<div class="veil" aria-hidden="true"></div>
+
+<div class="topbar">
+  <div class="topbar-in">
+    <div class="brand"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#star"/></svg>AI Act pour testeurs</div>
+    <nav class="nav" aria-label="Étapes">
+      <a href="#direction">En une minute</a>
+      <a href="#histoire">Histoire</a>
+      <a href="#risques">Risques</a>
+      <a href="#art50">Article 50</a>
+      <a href="#hautrisque">Haut risque</a>
+      <a href="#preuve">La preuve</a>
+      <a href="#quiz">Quiz</a>
+      <a href="#former">Se former</a>
+    </nav>
+  </div>
+</div>
+
+<main>
+
+<header class="hero" data-station>
+  <svg class="ring-fallback" viewBox="-110 -110 220 220" aria-hidden="true">
+    <g id="ring-stars"></g>
+  </svg>
+  <div class="hero-in">
+    <p class="eyebrow">Règlement (UE) 2024/1689 · formation</p>
+    <h1>Comprendre l'AI Act, et prouver qu'on le respecte</h1>
+    <p class="lede">Cinq étapes à travers l'Europe pour savoir ce que la loi exige, à quelle date, et comment le vérifier par des tests.</p>
+    <p class="byline">Par Amir Souayah, ingénieur QA senior · état du droit au 10 octobre 2026</p>
+    <p class="cue">Faire défiler pour partir</p>
+  </div>
+</header>
+
+<section class="sheet" id="direction">
+  <div class="head">
+    <span class="ref">Pour la direction</span>
+    <h2>L'essentiel en une minute</h2>
+    <p>L'AI Act s'applique à toute organisation qui vend ou utilise de l'IA en Europe. Il entre en application par étapes, et la première qui touche les produits est déjà passée.</p>
+  </div>
+  <div class="tiles">
+    <div class="tile ok"><b>2 août 2026</b><span>Les règles de transparence (article 50) s'appliquent : chatbots, contenus générés, deepfakes.</span></div>
+    <div class="tile warn"><b id="countdown">2 déc. 2027</b><span id="countdown-label">Obligations des systèmes à haut risque de l'annexe III : crédit, recrutement, éducation.</span></div>
+    <div class="tile ko"><b>15 M€ ou 3 %</b><span>Plafond pour un manquement à la transparence ou au haut risque. 35 M€ ou 7 % pour une pratique interdite (art. 99).</span></div>
+  </div>
+  <div>
+    <h3>Trois questions à poser à vos équipes</h3>
+    <ol class="asks">
+      <li>Quels systèmes d'IA utilisons-nous ou vendons-nous aujourd'hui ?</li>
+      <li>Pour chacun, sommes-nous le fournisseur ou le déployeur ?</li>
+      <li>Quelle preuve avons-nous que les règles déjà applicables sont respectées ?</li>
+    </ol>
+  </div>
+</section>
+
+<div class="vista" data-station id="histoire">
+  <div class="vista-in">
+    <span class="place"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#star"/></svg>Étape 1 · Bruxelles · Atomium</span>
+    <h2>Une loi née à Bruxelles</h2>
+    <p>Cinq ans entre la proposition et l'application complète.</p>
+  </div>
+</div>
+
+<section class="sheet">
+  <div class="head">
+    <span class="ref">Calendrier · art. 113, modifié par le règlement (UE) 2026/1744</span>
+    <h2>De la proposition à l'application</h2>
+    <p>Une règle crée du travail le jour où elle devient obligatoire. À l'été 2026, le calendrier a été revu : le haut risque a été repoussé, la transparence non.</p>
+  </div>
+  <ol class="timeline" id="timeline">
+    <li data-d="2021-04-21" data-k="h"><time datetime="2021-04-21">21 avr. 2021</time><span class="dot"></span><div><strong>La Commission propose le règlement</strong></div><span class="pill past">Histoire</span></li>
+    <li data-d="2023-12-09" data-k="h"><time datetime="2023-12">Déc. 2023</time><span class="dot"></span><div><strong>Accord politique</strong><small>Parlement et Conseil s'entendent sur le texte.</small></div><span class="pill past">Histoire</span></li>
+    <li data-d="2024-07-12" data-k="h"><time datetime="2024-07-12">12 juil. 2024</time><span class="dot"></span><div><strong>Publication au Journal officiel</strong></div><span class="pill past">Histoire</span></li>
+    <li data-d="2024-08-01"><time datetime="2024-08-01">1 août 2024</time><span class="dot"></span><div><strong>Entrée en vigueur</strong></div><span class="pill ok">En vigueur</span></li>
+    <li data-d="2025-02-02"><time datetime="2025-02-02">2 févr. 2025</time><span class="dot"></span><div><strong>Pratiques interdites et maîtrise de l'IA</strong><small>Art. 5 et art. 4.</small></div><span class="pill ok">En vigueur</span></li>
+    <li data-d="2025-08-02"><time datetime="2025-08-02">2 août 2025</time><span class="dot"></span><div><strong>Modèles d'IA à usage général</strong></div><span class="pill ok">En vigueur</span></li>
+    <li data-d="2026-07-27" data-k="h"><time datetime="2026-07-27">27 juil. 2026</time><span class="dot"></span><div><strong>L'omnibus numérique modifie le calendrier</strong><small>Règlement (UE) 2026/1744.</small></div><span class="pill past">Histoire</span></li>
+    <li data-d="2026-08-02" class="now"><time datetime="2026-08-02">2 août 2026</time><span class="dot"></span><div><strong>Transparence : article 50</strong><small>Chatbots, reconnaissance d'émotions, deepfakes, marquage des contenus générés.</small></div><span class="pill ok">En vigueur</span></li>
+    <li data-d="2026-12-02"><time datetime="2026-12-02">2 déc. 2026</time><span class="dot"></span><div><strong>Fin du délai de marquage</strong><small>Pour les systèmes déjà sur le marché avant le 2 août 2026 (art. 50 §2).</small></div><span class="pill warn">À venir</span></li>
+    <li data-d="2027-12-02"><time datetime="2027-12-02">2 déc. 2027</time><span class="dot"></span><div><strong>Haut risque, annexe III</strong><small>Crédit, recrutement, éducation, services essentiels.</small></div><span class="pill warn">À venir</span></li>
+    <li data-d="2028-08-02"><time datetime="2028-08-02">2 août 2028</time><span class="dot"></span><div><strong>Haut risque, annexe I</strong><small>IA intégrée à des produits réglementés : dispositifs médicaux, machines.</small></div><span class="pill warn">À venir</span></li>
+  </ol>
+  <p class="note">Les statuts suivent la date du jour. Le calendrier a déjà changé une fois : le vérifier avant toute décision.</p>
+</section>
+
+<div class="vista" data-station id="risques">
+  <div class="vista-in">
+    <span class="place"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#star"/></svg>Étape 2 · Rome · Colisée</span>
+    <h2>Quatre niveaux de risque</h2>
+    <p>Plus un usage peut nuire aux personnes, plus la loi exige.</p>
+  </div>
+</div>
+
+<section class="sheet">
+  <div class="head">
+    <span class="ref">Classification</span>
+    <h2>Où se situe votre système</h2>
+    <p>Tout commence par ce classement. Les deux niveaux du milieu sont ceux où les tests apportent le plus.</p>
+  </div>
+  <div class="rows">
+    <div class="row ko"><i></i><div><strong>Interdit</strong><small>Manipulation, notation sociale, reconnaissance des émotions au travail et à l'école.</small></div><span class="art">Art. 5</span><span class="pill ko">Depuis févr. 2025</span></div>
+    <div class="row warn"><i></i><div><strong>Haut risque</strong><small>Crédit, recrutement, éducation, infrastructures critiques. Gestion des risques, journaux, contrôle humain.</small></div><span class="art">Art. 6 à 27</span><span class="pill warn">2 déc. 2027</span></div>
+    <div class="row warn"><i></i><div><strong>Transparence</strong><small>Chatbots, contenus générés, deepfakes. Les personnes savent qu'une IA est en jeu.</small></div><span class="art">Art. 50</span><span class="pill ok">Depuis août 2026</span></div>
+    <div class="row ok"><i></i><div><strong>Risque minimal</strong><small>Filtre antispam, recommandation de produits.</small></div><span class="art">Le reste</span><span class="pill na">Pas d'obligation propre</span></div>
+  </div>
+  <div class="head"><span class="ref">Art. 3 · définitions</span><h3>Qui est responsable de quoi</h3></div>
+  <div class="two">
+    <div class="box"><h3>Fournisseur</h3><p>Il développe le système ou le met sur le marché sous son nom. Exemple : l'éditeur d'un chatbot. Il porte l'essentiel des obligations de conception.</p></div>
+    <div class="box"><h3>Déployeur</h3><p>Il utilise le système dans son activité. Exemple : la banque qui installe ce chatbot. Il l'utilise selon la notice, informe les personnes et surveille.</p></div>
+  </div>
+  <div class="roles">
+    <div class="role"><h3>Juriste</h3><p>Lit le texte et dit ce qui est obligatoire.</p></div>
+    <div class="role"><h3>Développeur</h3><p>Construit le produit et applique les exigences.</p></div>
+    <div class="role me"><h3>Testeur</h3><p>Prouve, à chaque livraison, que l'exigence est respectée.</p></div>
+    <div class="role"><h3>Direction</h3><p>Arbitre, signe et rend des comptes.</p></div>
+  </div>
+  <p class="call gold">Article 4 : fournisseurs et déployeurs prennent des mesures pour développer la maîtrise de l'IA de leur personnel. Depuis l'été 2026, la loi n'exige plus de garantir un niveau par personne, mais l'obligation d'agir demeure. Former une équipe en fait partie.</p>
+</section>
+
+<div class="vista" data-station id="art50">
+  <div class="vista-in">
+    <span class="place"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#star"/></svg>Étape 3 · Paris · tour Eiffel</span>
+    <h2>Article 50 : dire qu'une IA est là</h2>
+    <p>La règle déjà applicable, et la plus simple à vérifier.</p>
+  </div>
+</div>
+
+<section class="sheet">
+  <div class="head">
+    <span class="ref">Chapitre IV · article 50</span>
+    <h2>De la règle au test</h2>
+    <p>Les personnes ont le droit de savoir quand elles parlent à une IA ou regardent un contenu fabriqué par une IA. Chaque paragraphe se traduit en vérification.</p>
+  </div>
+  <div class="rules">
+    <div class="rule"><div><span class="art">Art. 50 §1</span><span class="who">Fournisseur</span></div><div><span class="lbl">La règle</span><p>Un système qui dialogue avec des personnes les informe qu'elles échangent avec une IA, sauf si c'est évident dans le contexte.</p></div><div class="t"><span class="lbl">Le test</span><p>La mention apparaît avant le premier message, sur le web et sur mobile. Le modèle ne nie jamais être une IA.</p></div></div>
+    <div class="rule"><div><span class="art">Art. 50 §2</span><span class="who">Fournisseur</span></div><div><span class="lbl">La règle</span><p>Les contenus générés (texte, image, audio, vidéo) portent un marquage lisible par machine.</p></div><div class="t"><span class="lbl">Le test</span><p>Chaque sortie contient le marquage, et il survit à un export ou à un téléchargement.</p></div></div>
+    <div class="rule"><div><span class="art">Art. 50 §3</span><span class="who">Déployeur</span></div><div><span class="lbl">La règle</span><p>Reconnaissance d'émotions ou catégorisation biométrique : les personnes exposées en sont informées.</p></div><div class="t"><span class="lbl">Le test</span><p>L'avis s'affiche avant l'activation de la caméra ou du micro, jamais après.</p></div></div>
+    <div class="rule"><div><span class="art">Art. 50 §4</span><span class="who">Déployeur</span></div><div><span class="lbl">La règle</span><p>Un deepfake est signalé. Un texte généré publié pour informer le public aussi, sauf relecture humaine avec responsabilité éditoriale.</p></div><div class="t"><span class="lbl">Le test</span><p>Le label est visible sur chaque contenu publié, dans chaque gabarit de page.</p></div></div>
+    <div class="rule"><div><span class="art">Art. 50 §5</span><span class="who">Tous</span></div><div><span class="lbl">La règle</span><p>L'information est claire, distincte, donnée au plus tard à la première interaction, et accessible.</p></div><div class="t"><span class="lbl">Le test</span><p>Contraste suffisant, lecture par un lecteur d'écran, mention à l'écran et non cachée dans les conditions générales.</p></div></div>
+  </div>
+  <h3>Les pièges qu'un testeur attrape</h3>
+  <ul class="traps">
+    <li><span class="pill ko">Échec</span><span>La mention existe sur le site mais pas dans l'application mobile.</span></li>
+    <li><span class="pill ko">Échec</span><span>Elle disparaît quand la conversation reprend après une pause.</span></li>
+    <li><span class="pill ko">Échec</span><span>Elle est en français et absente dans les autres langues.</span></li>
+    <li><span class="pill ko">Échec</span><span>Le chatbot répond « je suis votre conseillère » à « êtes-vous humain ? ».</span></li>
+  </ul>
+  <details>
+    <summary>Voir un test, en Playwright et TypeScript</summary>
+    <div class="code"><pre><span class="c">// ART50-1 : la personne sait qu'elle parle à une IA</span>
+test(<span class="s">'ART50-1 · la mention IA est visible avant le premier message'</span>, async ({ page }) =&gt; {
+  await ouvrirAssistant(page);
+  await expect(page.locator(cible.messageAssistant)).toHaveCount(0);
+  await expect(page.locator(cible.mention)).toBeVisible();
+});
+
+for (const question of QUESTIONS) {
+  test(<span class="s">`ART50-1 · l'assistant ne nie pas être une IA · ${question}`</span>, async ({ page }) =&gt; {
+    await ouvrirAssistant(page);
+    const reponse = await envoyer(page, question);
+    expect(jugerIdentite(reponse).conforme).toBe(true);
+  });
+}</pre></div>
+  </details>
+</section>
+
+<div class="vista" data-station id="hautrisque">
+  <div class="vista-in">
+    <span class="place"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#star"/></svg>Étape 4 · Berlin · porte de Brandebourg</span>
+    <h2>Haut risque : sept points de passage</h2>
+    <p>Rien n'entre sur le marché sans les avoir franchis.</p>
+  </div>
+</div>
+
+<section class="sheet">
+  <div class="head">
+    <span class="ref">Chapitre III · applicable le 2 décembre 2027 pour l'annexe III</span>
+    <h2>Sept exigences, sept familles de tests</h2>
+    <p>L'évaluation de la solvabilité d'une personne et le tri de candidatures figurent à l'annexe III. La détection de la fraude financière en est exclue.</p>
+  </div>
+  <div class="rules">
+    <div class="rule"><div><span class="art">Art. 9</span></div><div><span class="lbl">Gestion des risques</span><p>Les risques sont identifiés et le système est testé avec des métriques et des seuils fixés à l'avance.</p></div><div class="t"><span class="lbl">Le test</span><p>Un plan de test relié à chaque risque, avec des seuils écrits avant l'exécution.</p></div></div>
+    <div class="rule"><div><span class="art">Art. 10</span></div><div><span class="lbl">Données</span><p>Jeux de données pertinents, représentatifs, examinés pour les biais.</p></div><div class="t"><span class="lbl">Le test</span><p>Contrôles de qualité des données, comparaison des résultats entre groupes de population.</p></div></div>
+    <div class="rule"><div><span class="art">Art. 11</span></div><div><span class="lbl">Documentation technique</span><p>Un dossier décrit le système, ses performances et ses essais (annexe IV).</p></div><div class="t"><span class="lbl">Le test</span><p>Rapports de test versionnés et rattachés à chaque version livrée.</p></div></div>
+    <div class="rule"><div><span class="art">Art. 12</span></div><div><span class="lbl">Journalisation</span><p>Le système enregistre automatiquement les événements.</p></div><div class="t"><span class="lbl">Le test</span><p>Chaque décision produit une entrée de journal complète, horodatée et retrouvable.</p></div></div>
+    <div class="rule"><div><span class="art">Art. 13</span></div><div><span class="lbl">Notice pour le déployeur</span><p>Capacités, limites et niveau d'exactitude attendu sont expliqués.</p></div><div class="t"><span class="lbl">Le test</span><p>Les chiffres de la notice correspondent aux résultats mesurés.</p></div></div>
+    <div class="rule"><div><span class="art">Art. 14</span></div><div><span class="lbl">Contrôle humain</span><p>Une personne peut comprendre, écarter ou arrêter la décision du système.</p></div><div class="t"><span class="lbl">Le test</span><p>La reprise en main fonctionne, et la décision corrigée par l'humain est celle qui s'applique.</p></div></div>
+    <div class="rule"><div><span class="art">Art. 15</span></div><div><span class="lbl">Exactitude, robustesse, cybersécurité</span><p>Performances stables, résistance aux erreurs et aux attaques.</p></div><div class="t"><span class="lbl">Le test</span><p>Évaluations en intégration continue : régression des réponses, entrées bruitées, injections de prompt.</p></div></div>
+  </div>
+  <p class="call">Et l'ISO/IEC 42001 ? C'est une norme volontaire de système de management de l'IA. Elle organise la gouvernance et se certifie, mais elle n'est pas à ce jour une norme harmonisée au titre de l'AI Act : être certifié ne vaut pas présomption de conformité. La loi fixe les règles, la norme aide à s'organiser pour les tenir.</p>
+</section>
+
+<div class="vista" data-station id="preuve">
+  <div class="vista-in">
+    <span class="place"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#star"/></svg>Étape 5 · Athènes · Parthénon</span>
+    <h2>La preuve</h2>
+    <p>Une déclaration dit qu'on est conforme. Un test le montre.</p>
+  </div>
+</div>
+
+<section class="sheet">
+  <div class="head">
+    <span class="ref">Résultats réels · dépôt ai-act-tests</span>
+    <h2>Le même rapport, sur deux versions d'un assistant</h2>
+    <p>La suite de tests tourne sur un assistant de démonstration. Une version respecte les règles, l'autre contient six défauts volontaires. Basculez pour voir ce que la suite attrape.</p>
+  </div>
+  <div class="switch" role="group" aria-label="Version testée">
+    <button type="button" id="v-ok" aria-pressed="true">Version conforme</button>
+    <button type="button" id="v-ko" aria-pressed="false">Version défectueuse</button>
+  </div>
+  <div class="tiles">
+    <div class="tile ok" id="t-pass"><b>6 sur 6</b><span>exigences dont tous les tests passent</span></div>
+    <div class="tile" id="t-tests"><b>36 sur 36</b><span>contrôles réussis, sur ordinateur et mobile</span></div>
+    <div class="tile" id="t-eval"><b>22 sur 22</b><span>réponses acceptées à « es-tu humain ? », posé de 22 façons</span></div>
+  </div>
+  <div class="report" id="report">
+    <div class="report-head"><span>Exigence</span><span id="report-variant">Démo conforme</span></div>
+    <div class="rrow ok" data-id="ART50-1"><span class="art">Art. 50 §1</span><div><strong>Informer la personne qu'elle échange avec une IA</strong><small>Fournisseur</small></div><div class="meter"><b>17/17</b><span><i style="width:100%"></i></span></div><span class="pill ok">Tests réussis</span></div>
+    <div class="rrow ok" data-id="ART50-2"><span class="art">Art. 50 §2</span><div><strong>Marquer les contenus générés</strong><small>Fournisseur</small></div><div class="meter"><b>4/4</b><span><i style="width:100%"></i></span></div><span class="pill ok">Tests réussis</span></div>
+    <div class="rrow na" data-id="ART50-3"><span class="art">Art. 50 §3</span><div><strong>Reconnaissance d'émotions, biométrie</strong><small>La démo n'en utilise pas</small></div><div class="meter"><b>–</b><span><i style="width:0"></i></span></div><span class="pill na">Hors périmètre</span></div>
+    <div class="rrow ok" data-id="ART50-4"><span class="art">Art. 50 §4</span><div><strong>Signaler les textes générés publiés</strong><small>Déployeur</small></div><div class="meter"><b>2/2</b><span><i style="width:100%"></i></span></div><span class="pill ok">Tests réussis</span></div>
+    <div class="rrow ok" data-id="ART50-5"><span class="art">Art. 50 §5</span><div><strong>Information claire, distincte, accessible</strong><small>Fournisseur et déployeur</small></div><div class="meter"><b>8/8</b><span><i style="width:100%"></i></span></div><span class="pill ok">Tests réussis</span></div>
+    <div class="rrow ok" data-id="ART12"><span class="art">Art. 12</span><div><strong>Enregistrer automatiquement les événements</strong><small>Illustration haut risque</small></div><div class="meter"><b>2/2</b><span><i style="width:100%"></i></span></div><span class="pill ok">Tests réussis</span></div>
+    <div class="rrow ok" data-id="ART14"><span class="art">Art. 14</span><div><strong>Permettre à une personne de reprendre la main</strong><small>Illustration haut risque</small></div><div class="meter"><b>3/3</b><span><i style="width:100%"></i></span></div><span class="pill ok">Tests réussis</span></div>
+  </div>
+  <p class="call gold" id="lesson">Sur la version conforme, tout passe. Ce résultat seul ne prouve rien : il faut aussi montrer que la suite sait échouer. Basculez sur la version défectueuse.</p>
+  <p class="note">Un test réussi montre qu'un contrôle est passé sur une version donnée. Ce n'est ni un audit, ni une attestation de conformité.</p>
+</section>
+
+<section class="sheet" id="quiz">
+  <div class="head">
+    <span class="ref">Vérifier ses acquis</span>
+    <h2>Six questions</h2>
+    <p>Une réponse par question. L'explication s'affiche tout de suite.</p>
+  </div>
+  <div class="quiz" id="quizBox"></div>
+  <p class="score" id="score" aria-live="polite">Score : 0 / 6</p>
+</section>
+
+<div class="vista" data-station id="former">
+  <div class="vista-in">
+    <span class="place"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#star"/></svg>Fin du parcours</span>
+    <h2>Trente minutes pour former une équipe</h2>
+    <p>Ce support se présente tel quel, du premier écran au quiz.</p>
+  </div>
+</div>
+
+<section class="sheet">
+  <div class="head">
+    <span class="ref">Passer à la pratique</span>
+    <h2>Le parcours, dans l'ordre</h2>
+    <p>La preuve passe avant le titre. Les cases cochées sont mémorisées dans ce navigateur.</p>
+  </div>
+  <div class="path">
+    <div>
+      <div class="bar" aria-hidden="true"><i id="barFill"></i></div>
+      <ol class="steps" id="steps">
+        <li><label for="st1"><input type="checkbox" id="st1"><span>Lire l'article 50 dans le texte<small>Une page. Puis les lignes directrices de la Commission du 20 juillet 2026.</small></span></label></li>
+        <li><label for="st2"><input type="checkbox" id="st2"><span>Faire tourner la suite de tests sur la démo<small>Version conforme, puis version défectueuse.</small></span></label></li>
+        <li><label for="st3"><input type="checkbox" id="st3"><span>Observer cinq assistants publics à la main<small>Avec la grille du dépôt, sans rien automatiser.</small></span></label></li>
+        <li><label for="st4"><input type="checkbox" id="st4"><span>Brancher la suite sur un produit réel<small>Avec l'accord écrit de son propriétaire.</small></span></label></li>
+        <li><label for="st5"><input type="checkbox" id="st5"><span>Présenter ce support à une équipe<small>Trente minutes, avec la démonstration.</small></span></label></li>
+        <li><label for="st6"><input type="checkbox" id="st6"><span>Passer la certification ISTQB CT-AI<small>Une fois la pratique acquise.</small></span></label></li>
+      </ol>
+    </div>
+    <div class="box">
+      <h3>Session d'équipe, 30 minutes</h3>
+      <ol class="agenda">
+        <li>L'essentiel et les dates (5 min)</li>
+        <li>Les quatre niveaux de risque (5 min)</li>
+        <li>Article 50 : la règle et son test (10 min)</li>
+        <li>Le rapport, version défectueuse (5 min)</li>
+        <li>Quiz et questions (5 min)</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Support de formation, pas un avis juridique. Les résumés sont ceux de l'auteur : le texte publié au Journal officiel de l'Union européenne fait foi, et le calendrier peut encore évoluer.</p>
+  <ul>
+    <li><a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj">Règlement (UE) 2024/1689</a> et <a href="https://eur-lex.europa.eu/eli/reg/2026/1744/oj">règlement (UE) 2026/1744</a>, textes officiels sur EUR-Lex</li>
+    <li><a href="https://artificialintelligenceact.eu/fr/article/50/">Article 50, texte et considérants</a> (Future of Life Institute, traduction non officielle)</li>
+    <li><a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai">Cadre réglementaire de l'IA</a>, Commission européenne</li>
+  </ul>
+</footer>
+
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+  'use strict';
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var DAY = 24*3600*1000, today = new Date();
+
+  /* ---------- Anneau de secours (sans WebGL) ---------- */
+  (function(){
+    var g = document.getElementById('ring-stars');
+    for (var k = 0; k < 12; k++){
+      var a = k * Math.PI / 6, u = document.createElementNS('http://www.w3.org/2000/svg','use');
+      u.setAttribute('href', '#star');
+      u.setAttribute('transform', 'translate(' + (Math.sin(a)*92 - 9) + ' ' + (-Math.cos(a)*92 - 9) + ') scale(.75)');
+      g.appendChild(u);
+    }
+  })();
+
+  /* ---------- Calendrier et compte à rebours ---------- */
+  document.querySelectorAll('#timeline li').forEach(function(li){
+    var d = new Date(li.getAttribute('data-d') + 'T00:00:00'), pill = li.querySelector('.pill');
+    if (li.getAttribute('data-k') === 'h') return;
+    if (d <= today){ pill.className = 'pill ok'; pill.textContent = 'En vigueur'; }
+    else {
+      var days = Math.ceil((d - today) / DAY);
+      pill.className = 'pill warn';
+      pill.textContent = days > 60 ? 'Dans ' + Math.round(days/30.4) + ' mois' : 'Dans ' + days + ' j';
+    }
+  });
+  (function(){
+    var d = new Date('2027-12-02T00:00:00'), days = Math.ceil((d - today) / DAY);
+    if (days > 0){
+      document.getElementById('countdown').textContent = days + ' jours';
+      document.getElementById('countdown-label').textContent = "avant le 2 décembre 2027 : obligations des systèmes à haut risque de l'annexe III (crédit, recrutement, éducation).";
+    }
+  })();
+
+  /* ---------- Rapport : deux versions de la démo ---------- */
+  var DATA = {
+    ok: { label: 'Démo conforme', rows: { 'ART50-1':[17,17], 'ART50-2':[4,4], 'ART50-4':[2,2], 'ART50-5':[8,8], 'ART12':[2,2], 'ART14':[3,3] },
+          pass: ['6 sur 6','ok'], tests: ['36 sur 36',''], evals: ['22 sur 22',''],
+          lesson: "Sur la version conforme, tout passe. Ce résultat seul ne prouve rien : il faut aussi montrer que la suite sait échouer. Basculez sur la version défectueuse." },
+    ko: { label: 'Démo défectueuse', rows: { 'ART50-1':[4,17], 'ART50-2':[0,4], 'ART50-4':[0,2], 'ART50-5':[0,8], 'ART12':[0,2], 'ART14':[0,3] },
+          pass: ['0 sur 6','ko'], tests: ['4 sur 36','ko'], evals: ['4 sur 22','ko'],
+          lesson: "Les six défauts sont détectés. Le plus instructif : cette version répond correctement à « Es-tu un humain ? », puis se présente comme « Julie, votre conseillère » dès qu'on reformule. Un test à une seule question serait passé. Avec 22 formulations, 18 réponses sont refusées." }
+  };
+  function setTile(id, v){ var el = document.getElementById(id); el.className = 'tile' + (v[1] ? ' ' + v[1] : ''); el.querySelector('b').textContent = v[0]; }
+  function show(key){
+    var d = DATA[key];
+    document.getElementById('v-ok').setAttribute('aria-pressed', key === 'ok');
+    document.getElementById('v-ko').setAttribute('aria-pressed', key === 'ko');
+    document.getElementById('report-variant').textContent = d.label;
+    document.querySelectorAll('#report .rrow').forEach(function(row){
+      var r = d.rows[row.getAttribute('data-id')]; if (!r) return;
+      var good = r[0] === r[1];
+      row.className = 'rrow ' + (good ? 'ok' : 'ko');
+      row.querySelector('.meter b').textContent = r[0] + '/' + r[1];
+      row.querySelector('.meter i').style.width = (r[0] / r[1] * 100) + '%';
+      var pill = row.querySelector('.pill'); pill.className = 'pill ' + (good ? 'ok' : 'ko'); pill.textContent = good ? 'Tests réussis' : 'Échec';
+    });
+    setTile('t-pass', d.pass); setTile('t-tests', d.tests); setTile('t-eval', d.evals);
+    document.getElementById('lesson').textContent = d.lesson;
+  }
+  document.getElementById('v-ok').addEventListener('click', function(){ show('ok'); });
+  document.getElementById('v-ko').addEventListener('click', function(){ show('ko'); });
+
+  /* ---------- Quiz ---------- */
+  var QUIZ = [
+    {q:"Depuis quand l'article 50 s'applique-t-il ?", o:["2 février 2025","2 août 2026","2 décembre 2027"], a:1,
+     w:"La transparence n'a pas été repoussée. Seuls les systèmes déjà sur le marché ont jusqu'au 2 décembre 2026 pour le marquage des contenus générés."},
+    {q:"Une banque installe sur son site le chatbot d'un éditeur. Quel est le rôle de la banque ?", o:["Fournisseur","Déployeur","Aucun, tout repose sur l'éditeur"], a:1,
+     w:"Elle utilise le système dans son activité : c'est un déployeur. L'éditeur est le fournisseur."},
+    {q:"Un modèle évalue la solvabilité de particuliers pour accorder un crédit. Quel niveau ?", o:["Risque minimal","Transparence seulement","Haut risque"], a:2,
+     w:"L'évaluation de la solvabilité figure à l'annexe III. Obligations complètes au 2 décembre 2027."},
+    {q:"Quel article impose l'enregistrement automatique des événements ?", o:["Article 12","Article 14","Article 50"], a:0,
+     w:"Article 12, journalisation. L'article 14 traite du contrôle humain."},
+    {q:"À « êtes-vous humain ? », le chatbot répond « je suis Julie, votre conseillère ». Verdict ?", o:["Réussi, le ton est naturel","Échec sur l'article 50 §1","Hors périmètre du test"], a:1,
+     w:"La personne n'est pas informée qu'elle parle à une IA. C'est le cas que seul un test du modèle attrape."},
+    {q:"Une entreprise est certifiée ISO/IEC 42001. Est-elle conforme à l'AI Act ?", o:["Oui, automatiquement","Non, la certification ne vaut pas présomption de conformité","Oui, pour le haut risque seulement"], a:1,
+     w:"La norme est volontaire et n'est pas harmonisée au titre de l'AI Act à ce jour. Elle aide à s'organiser, elle ne remplace pas les obligations."}
+  ];
+  var box = document.getElementById('quizBox'), scoreEl = document.getElementById('score'), score = 0;
+  QUIZ.forEach(function(item, i){
+    var card = document.createElement('div'); card.className = 'q';
+    var h = document.createElement('h3'); h.textContent = (i+1) + '. ' + item.q; card.appendChild(h);
+    var opts = document.createElement('div'); opts.className = 'opts';
+    var why = document.createElement('p'); why.className = 'why'; why.hidden = true; why.textContent = item.w;
+    item.o.forEach(function(text, j){
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'opt'; b.id = 'q' + i + 'o' + j; b.textContent = text;
+      b.addEventListener('click', function(){
+        opts.querySelectorAll('button').forEach(function(x, k){ x.disabled = true; if (k === item.a) x.classList.add('right'); });
+        if (j === item.a) score++; else b.classList.add('wrong');
+        why.hidden = false;
+        scoreEl.textContent = 'Score : ' + score + ' / ' + QUIZ.length;
+      });
+      opts.appendChild(b);
+    });
+    card.appendChild(opts); card.appendChild(why); box.appendChild(card);
+  });
+
+  /* ---------- Parcours ---------- */
+  var KEY = 'aiact-parcours-2', boxes = document.querySelectorAll('#steps input'), fill = document.getElementById('barFill'), saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e){ saved = {}; }
+  function refresh(){ var n = 0; boxes.forEach(function(c){ if (c.checked) n++; }); fill.style.width = (n / boxes.length * 100) + '%'; }
+  boxes.forEach(function(c){
+    if (saved[c.id]) c.checked = true;
+    c.addEventListener('change', function(){ saved[c.id] = c.checked; try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch(e){} refresh(); });
+  });
+  refresh();
+
+  /* ---------- Scène 3D ---------- */
+  var canvas = document.getElementById('sky'), root = document.documentElement;
+  function noGl(){ root.classList.add('no-gl'); canvas.style.display = 'none'; }
+  if (!window.THREE){ noGl(); return; }
+  var renderer;
+  try { renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, powerPreference: 'low-power' }); }
+  catch(e){ noGl(); return; }
+
+  var SKY = 0x0A1F5C, GOLD = 0xE8C44A, FILL = 0x071647;
+  var scene = new THREE.Scene();
+  scene.background = new THREE.Color(SKY);
+  scene.fog = new THREE.FogExp2(SKY, 0.0085);
+  var FOV = 45, camera = new THREE.PerspectiveCamera(FOV, 1, 0.1, 1800);
+  scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+  var sun = new THREE.DirectionalLight(0xffffff, 0.9); sun.position.set(6, 12, 14); scene.add(sun);
+
+  var fillMat = new THREE.MeshBasicMaterial({ color: FILL, polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1 });
+  var fillMat2 = new THREE.MeshBasicMaterial({ color: FILL, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1 });
+  var lineMat = new THREE.LineBasicMaterial({ color: GOLD, transparent: true, opacity: 0.92 });
+  var V = function(x, y, z){ return new THREE.Vector3(x, y, z); };
+
+  function solid(geo, thr, shell){
+    var g = new THREE.Group();
+    g.add(new THREE.Mesh(geo, shell ? fillMat2 : fillMat));
+    g.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo, thr == null ? 20 : thr), lineMat));
+    return g;
+  }
+  function box3(w, h, d, x, y, z){ var m = solid(new THREE.BoxGeometry(w, h, d)); m.position.set(x, y + h/2, z); return m; }
+  function cyl(rt, rb, h, seg, x, y, z){ var m = solid(new THREE.CylinderGeometry(rt, rb, h, seg)); m.position.set(x, y + h/2, z); return m; }
+  function beam(a, b, r1, r2, seg){
+    var dir = new THREE.Vector3().subVectors(b, a), len = dir.length();
+    var m = solid(new THREE.CylinderGeometry(r2, r1, len, seg || 4));
+    m.position.copy(a).addScaledVector(dir, 0.5);
+    m.quaternion.setFromUnitVectors(V(0, 1, 0), dir.normalize());
+    return m;
+  }
+  function lines(points){ return new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(points), lineMat); }
+  function polyline(out, pts){ for (var i = 0; i < pts.length - 1; i++){ out.push(pts[i], pts[i+1]); } }
+
+  /* Étoiles du drapeau : douze étoiles à cinq branches, pointe en haut, sur un cercle. */
+  function starGeometry(R){
+    var s = new THREE.Shape(), r = R * 0.382;
+    for (var i = 0; i < 10; i++){
+      var a = Math.PI/2 + i * Math.PI/5, rad = i % 2 ? r : R, x = Math.cos(a)*rad, y = Math.sin(a)*rad;
+      if (i === 0) s.moveTo(x, y); else s.lineTo(x, y);
+    }
+    s.closePath();
+    var g = new THREE.ExtrudeGeometry(s, { depth: 0.28, bevelEnabled: true, bevelThickness: 0.06, bevelSize: 0.05, bevelSegments: 1 });
+    g.center();
+    return g;
+  }
+  var starMat = new THREE.MeshStandardMaterial({ color: 0xFFCC00, metalness: 0.45, roughness: 0.38, emissive: 0x9A7400, emissiveIntensity: 0.55, fog: false });
+  var RING_R = 6, starGeo = starGeometry(1);
+  function ring(){
+    var g = new THREE.Group();
+    for (var k = 0; k < 12; k++){
+      var a = k * Math.PI/6, m = new THREE.Mesh(starGeo, starMat);
+      m.position.set(Math.sin(a)*RING_R, Math.cos(a)*RING_R, 0);
+      m.userData.phase = k * 0.52;
+      g.add(m);
+    }
+    return g;
+  }
+  var ring1 = ring(); ring1.position.set(0, 7, 0); scene.add(ring1);
+  var ring2 = ring(); ring2.position.set(0, 13, -590); scene.add(ring2);
+
+  /* Ciel étoilé : points ronds et doux, tenus à l'écart du couloir de la caméra */
+  (function(){
+    var c = document.createElement('canvas'); c.width = c.height = 64;
+    var ctx = c.getContext('2d'), grad = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+    grad.addColorStop(0, 'rgba(255,255,255,1)'); grad.addColorStop(0.35, 'rgba(255,255,255,.75)'); grad.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = grad; ctx.fillRect(0, 0, 64, 64);
+    var N = 1900, pos = new Float32Array(N * 3);
+    for (var i = 0; i < N; i++){
+      var x = (Math.random() - 0.5) * 560;
+      pos[i*3]   = x;
+      pos[i*3+1] = (Math.abs(x) > 70 ? 5 : 30) + Math.pow(Math.random(), 1.4) * 200;
+      pos[i*3+2] = 110 - Math.random() * 840;
+    }
+    var g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    scene.add(new THREE.Points(g, new THREE.PointsMaterial({ color: 0xE3EBFF, map: new THREE.CanvasTexture(c), size: 2.1, sizeAttenuation: true, transparent: true, opacity: 0.9, depthWrite: false, fog: false })));
+  })();
+
+  /* Sol : un quadrillage discret pour sentir le déplacement */
+  (function(){
+    var grid = new THREE.GridHelper(1600, 160, 0x2A49A8, 0x1B3486);
+    grid.position.set(0, 0, -290); grid.material.transparent = true; grid.material.opacity = 0.55;
+    scene.add(grid);
+  })();
+
+  /* Atomium, Bruxelles */
+  function atomium(){
+    var g = new THREE.Group(), inner = new THREE.Group(), s = 2.75, pts = [], i, j;
+    for (i = 0; i < 8; i++) pts.push(V((i & 1 ? 1 : -1) * s, (i & 2 ? 1 : -1) * s, (i & 4 ? 1 : -1) * s));
+    var sphereGeo = new THREE.IcosahedronGeometry(1.08, 1);
+    pts.concat([V(0, 0, 0)]).forEach(function(p){ var m = solid(sphereGeo, 1); m.position.copy(p); inner.add(m); });
+    for (i = 0; i < 8; i++){
+      inner.add(beam(V(0, 0, 0), pts[i], 0.15, 0.15, 6));
+      for (j = i + 1; j < 8; j++){ var x = i ^ j; if (x === 1 || x === 2 || x === 4) inner.add(beam(pts[i], pts[j], 0.17, 0.17, 6)); }
+    }
+    inner.quaternion.setFromUnitVectors(V(1, 1, 1).normalize(), V(0, 1, 0));
+    inner.position.y = s * Math.sqrt(3) + 1.5;
+    g.add(inner);
+    g.add(cyl(1.5, 1.9, 0.5, 16, 0, 0, 0));
+    return g;
+  }
+
+  /* Colisée, Rome */
+  function colosseum(){
+    var g = new THREE.Group(), R = 9, TH = 1.55, BAYS = 40, d = 2 * Math.PI / BAYS, pts = [];
+    function shell(r, y, h, t0, len, seg){ var m = solid(new THREE.CylinderGeometry(r, r, h, seg, 1, true, t0, len), 1, true); m.position.y = y + h/2; g.add(m); }
+    function arches(r, t0, bays, y0){
+      for (var j = 0; j < bays; j++){
+        var a = t0 + (j + 0.24) * d, b = t0 + (j + 0.76) * d, mid = (a + b) / 2, half = (b - a) / 2, p = [], rr = r * 1.004;
+        p.push(V(Math.sin(a)*rr, y0 + 0.12, Math.cos(a)*rr));
+        for (var u = 0; u <= 6; u++){ var t = mid - half * Math.cos(u * Math.PI / 6); p.push(V(Math.sin(t)*rr, y0 + 0.78 + 0.42 * Math.sin(u * Math.PI / 6), Math.cos(t)*rr)); }
+        p.push(V(Math.sin(b)*rr, y0 + 0.12, Math.cos(b)*rr));
+        polyline(pts, p);
+      }
+    }
+    var T0 = Math.PI * 0.2, OUT = 24;                       /* le grand mur extérieur, sur un peu plus de la moitié */
+    for (var k = 0; k < 3; k++){ shell(R, k * TH, TH, T0, OUT * d, OUT); arches(R, T0, OUT, k * TH); }
+    shell(R, 3 * TH, 1.45, T0, OUT * d, OUT);
+    var RI = R * 0.86;                                      /* l'anneau intérieur, plus bas, tout autour */
+    for (k = 0; k < 2; k++){ shell(RI, k * TH, TH, 0, 2 * Math.PI, BAYS); arches(RI, 0, BAYS, k * TH); }
+    var bowl = solid(new THREE.CylinderGeometry(RI, R * 0.45, 2.3, BAYS, 1, true), 1, true); bowl.position.y = 0.8 + 1.15; g.add(bowl);
+    var floor = solid(new THREE.CylinderGeometry(R * 0.45, R * 0.45, 0.8, BAYS)); floor.position.y = 0.4; g.add(floor);
+    g.add(lines(pts));
+    g.scale.set(1.2, 1, 1);
+    return g;
+  }
+
+  /* Tour Eiffel, Paris */
+  function eiffel(){
+    var g = new THREE.Group(), pts = [];
+    [[1,1],[1,-1],[-1,1],[-1,-1]].forEach(function(s){
+      g.add(beam(V(3.3*s[0], 0, 3.3*s[1]), V(1.55*s[0], 3.7, 1.55*s[1]), 0.52, 0.36, 4));
+      g.add(beam(V(1.5*s[0], 4.0, 1.5*s[1]), V(0.82*s[0], 6.9, 0.82*s[1]), 0.3, 0.22, 4));
+    });
+    g.add(box3(3.9, 0.3, 3.9, 0, 3.7, 0));
+    g.add(box3(2.2, 0.25, 2.2, 0, 6.9, 0));
+    var up = solid(new THREE.CylinderGeometry(0.2, 1.05, 7.2, 4)); up.rotation.y = Math.PI/4; up.position.y = 7.15 + 3.6; g.add(up);
+    g.add(box3(0.8, 0.25, 0.8, 0, 14.35, 0));
+    g.add(box3(0.45, 0.5, 0.45, 0, 14.6, 0));
+    g.add(beam(V(0, 15.1, 0), V(0, 16.7, 0), 0.06, 0.02, 4));
+    function face(fn){
+      var n = 7, i;                                           /* croisillons de la flèche */
+      for (i = 0; i < n; i++){
+        var y0 = 7.15 + 7.2 * i / n, y1 = 7.15 + 7.2 * (i + 1) / n;
+        var w0 = (0.742 + (0.141 - 0.742) * i / n) * 1.02, w1 = (0.742 + (0.141 - 0.742) * (i + 1) / n) * 1.02;
+        pts.push(fn(-w0, y0, w0), fn(w1, y1, w1), fn(w0, y0, w0), fn(-w1, y1, w1), fn(-w0, y0, w0), fn(w0, y0, w0));
+      }
+      var arc = [];                                           /* grande arche entre deux pieds */
+      for (i = 0; i <= 12; i++){ var u = i * Math.PI / 12, y = 2.7 * Math.sin(u); arc.push(fn(-2.5 * Math.cos(u), y, 3.3 - 1.75 * (y / 3.7))); }
+      polyline(pts, arc);
+    }
+    face(function(l, y, c){ return V(l, y, c); });
+    face(function(l, y, c){ return V(l, y, -c); });
+    face(function(l, y, c){ return V(c, y, l); });
+    face(function(l, y, c){ return V(-c, y, l); });
+    g.add(lines(pts));
+    return g;
+  }
+
+  /* Porte de Brandebourg, Berlin */
+  function brandenburg(){
+    var g = new THREE.Group(), xs = [-5.5, -3.3, -1.1, 1.1, 3.3, 5.5];
+    g.add(box3(14, 0.4, 5.4, 0, 0, 0));
+    xs.forEach(function(x){
+      g.add(cyl(0.4, 0.48, 4.6, 10, x, 0.4, 2.0));
+      g.add(cyl(0.4, 0.48, 4.6, 10, x, 0.4, -2.0));
+      g.add(box3(0.5, 4.6, 3.0, x, 0.4, 0));
+    });
+    g.add(box3(13, 0.9, 4.9, 0, 5.0, 0));
+    g.add(box3(13.5, 0.25, 5.3, 0, 5.9, 0));
+    g.add(box3(9.4, 1.1, 3.8, 0, 6.15, 0));
+    g.add(box3(6, 0.4, 3, 0, 7.25, 0));
+    g.add(box3(2.6, 0.5, 1.7, 0, 7.65, 0));                 /* quadrige, simplifié */
+    g.add(box3(2.3, 0.95, 0.5, 0, 8.15, 0.5));
+    g.add(box3(0.34, 1.7, 0.34, 0, 8.15, -0.35));
+    return g;
+  }
+
+  /* Parthénon, Athènes */
+  function parthenon(){
+    var g = new THREE.Group(), i;
+    g.add(box3(13.4, 0.3, 23.6, 0, 0, 0)); g.add(box3(12.8, 0.3, 23, 0, 0.3, 0)); g.add(box3(12.2, 0.3, 22.4, 0, 0.6, 0));
+    for (i = 0; i < 8; i++){ var x = -5.25 + i * 1.5; g.add(cyl(0.36, 0.45, 4.2, 8, x, 0.9, 10.4)); g.add(cyl(0.36, 0.45, 4.2, 8, x, 0.9, -10.4)); }
+    for (i = 1; i < 12; i++){ var z = -10.4 + i * (20.8 / 12); g.add(cyl(0.36, 0.45, 4.2, 8, 5.25, 0.9, z)); g.add(cyl(0.36, 0.45, 4.2, 8, -5.25, 0.9, z)); }
+    g.add(box3(7.2, 4.2, 16.5, 0, 0.9, 0));
+    g.add(box3(11.6, 0.85, 21.9, 0, 5.1, 0));
+    var tri = new THREE.Shape(); tri.moveTo(-6.0, 0); tri.lineTo(6.0, 0); tri.lineTo(0, 1.75); tri.closePath();
+    var roof = solid(new THREE.ExtrudeGeometry(tri, { depth: 22.3, bevelEnabled: false }));
+    roof.position.set(0, 5.95, -11.15); g.add(roof);
+    return g;
+  }
+
+  var MON = [
+    { make: atomium,     p: [14, 0, -130],   look: 6.2, D: 23, e: 6.5, a: -0.55, ry: 0.5 },
+    { make: colosseum,   p: [-18, 0, -220], look: 2.6, D: 31, e: 10,  a: 0.6,   ry: -0.9 },
+    { make: eiffel,      p: [14, 0, -310],  look: 7.8, D: 31, e: 5,   a: -0.5,  ry: 0.35 },
+    { make: brandenburg, p: [-14, 0, -400], look: 4.0, D: 24, e: 4.5, a: 0.5,   ry: 0.2 },
+    { make: parthenon,   p: [14, 0, -490],  look: 3.3, D: 31, e: 7.5, a: -0.62, ry: 0 }
+  ];
+  MON.forEach(function(m){ var g = m.make(); g.position.set(m.p[0], m.p[1], m.p[2]); g.rotation.y = m.ry; scene.add(g); });
+
+  /* ---------- Caméra pilotée par le défilement ---------- */
+  var els = Array.prototype.slice.call(document.querySelectorAll('[data-station]'));
+  var S = els.map(function(){ return { cam: V(0, 0, 0), look: V(0, 0, 0), y: 0 }; });
+  var hold = 0, tanHalf = Math.tan(FOV * Math.PI / 360);
+
+  function place(){
+    var w = window.innerWidth, h = window.innerHeight, aspect = w / h, portrait = aspect < 0.8;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setSize(w, h, false);
+    camera.aspect = aspect; camera.updateProjectionMatrix();
+
+    /* station 0 : l'anneau de douze étoiles, cadré sur la largeur ou la hauteur */
+    var span = 2 * RING_R + 2.4;
+    var d0 = Math.max(span / (2 * tanHalf * 0.84), span / (2 * tanHalf * aspect * 0.9));
+    var shift = portrait ? 0.19 * 2 * d0 * tanHalf : 0;      /* en portrait, l'anneau monte pour laisser le titre en dessous */
+    S[0].cam.set(0, 7 - shift, d0); S[0].look.set(0, 7 - shift, 0);
+
+    var k = Math.min(2.3, Math.max(1, 1.05 / aspect));
+    MON.forEach(function(m, i){
+      var a = m.a / k, D = m.D * k, s = S[i + 1];
+      s.cam.set(m.p[0] + Math.sin(a) * D, m.e * Math.sqrt(k), m.p[2] + Math.cos(a) * D);
+      s.look.set(m.p[0], m.look, m.p[2]);
+      if (aspect > 1.15){                                     /* écran large : le monument se décale à droite du titre */
+        var dir = new THREE.Vector3().subVectors(s.look, s.cam).normalize(), right = new THREE.Vector3().crossVectors(dir, V(0, 1, 0)).normalize();
+        s.look.addScaledVector(right, -0.14 * 2 * D * tanHalf * aspect);
+      }
+    });
+
+    var last = S[S.length - 1];                               /* dernière station : retour aux étoiles */
+    last.cam.set(0, 13, -590 + d0); last.look.set(0, 13, -590);
+
+    var sy = window.pageYOffset;
+    els.forEach(function(el, i){ var r = el.getBoundingClientRect(); S[i].y = i === 0 ? h / 2 : r.top + sy + r.height / 2; });
+    hold = h * 0.16;
+  }
+
+  function targetF(){
+    var c = window.pageYOffset + window.innerHeight / 2;
+    if (c <= S[0].y) return 0;
+    for (var i = 0; i < S.length - 1; i++){
+      var a = S[i].y + hold, b = S[i + 1].y - hold;
+      if (c <= a) return i;
+      if (c < b){ var t = (c - a) / Math.max(1, b - a); return i + t * t * (3 - 2 * t); }
+    }
+    return S.length - 1;
+  }
+
+  var f = 0, pos = V(0, 0, 0), look = V(0, 0, 0), t0 = performance.now(), running = true;
+  function frame(now){
+    if (!running) return;
+    var time = (now - t0) / 1000, target = targetF();
+    f = reduce ? target : f + (target - f) * 0.09;
+    if (Math.abs(target - f) < 0.0004) f = target;
+    var i = Math.min(S.length - 2, Math.floor(f)), t = f - i;
+    pos.lerpVectors(S[i].cam, S[i + 1].cam, t);
+    look.lerpVectors(S[i].look, S[i + 1].look, t);
+    if (!reduce){
+      pos.x += Math.sin(time * 0.21) * 0.7; pos.y += Math.sin(time * 0.17) * 0.3;
+      [ring1, ring2].forEach(function(r){
+        r.rotation.z = time * 0.05;
+        r.children.forEach(function(star){ star.rotation.z = -r.rotation.z; star.rotation.y = Math.sin(time * 0.6 + star.userData.phase) * 0.5; });
+      });
+    }
+    camera.position.copy(pos); camera.lookAt(look);
+    renderer.render(scene, camera);
+    requestAnimationFrame(frame);
+  }
+
+  var resizeTimer;
+  window.addEventListener('resize', function(){ clearTimeout(resizeTimer); resizeTimer = setTimeout(place, 120); });
+  window.addEventListener('load', place);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
+  document.addEventListener('visibilitychange', function(){
+    var was = running; running = !document.hidden;
+    if (running && !was) requestAnimationFrame(frame);
+  });
+  canvas.addEventListener('webglcontextlost', function(ev){ ev.preventDefault(); running = false; noGl(); });
+
+  place();
+  f = targetF();
+  requestAnimationFrame(frame);
+})();
+</script>
+
+</body>
+</html>
